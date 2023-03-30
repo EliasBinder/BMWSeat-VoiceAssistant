@@ -1,10 +1,10 @@
 const Mic = require('node-microphone');
 const mic = new Mic();
 
-export const getStream = () => {
+export const getMicrophoneStream = () => {
     return mic.startRecording();
 }
 
-export const stopStream = () => {
+export const stopMicrophoneStream = () => {
     mic.stopRecording();
 }
