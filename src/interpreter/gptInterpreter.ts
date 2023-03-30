@@ -1,6 +1,4 @@
 import openAI from "../singelton/OpenAI";
-import fs from "fs";
-import OpenAI from "../singelton/OpenAI";
 
 export async function interpreteMessage(prompt: string){
 
