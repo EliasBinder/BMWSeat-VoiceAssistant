@@ -1,15 +1,12 @@
 import { Configuration, OpenAIApi } from "openai";
 import config from "../../config.json";
+import openAI from "../singelton/OpenAI";
 import fs from 'fs';
 
 export async function transcribeFile(filepath: string){
-    const api_config:Configuration = new Configuration({
-        apiKey: config.OpenAI_API_Key,
-    });
 
-    const openai:OpenAIApi = new OpenAIApi(api_config);
-
-    const resp = await openai.createTranscription(
+    const resp = await openAI.openai.createTranscription(
+        //@ts-ignore
         fs.createReadStream(filepath),
         "whisper-1"
     );
