@@ -19,6 +19,9 @@
     "typescript": "^5.0.2"
   },
   "dependencies": {
-    "node-microphone": "^0.1.6"
+    "@babel/preset-env": "^7.20.2",
+    "file-system": "^2.2.2",
+    "node-microphone": "^0.1.6",
+    "openai": "^3.2.1"
   }
 }
