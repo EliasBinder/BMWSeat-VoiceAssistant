@@ -13,5 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "node-microphone": "^0.1.6"
   }
 }
