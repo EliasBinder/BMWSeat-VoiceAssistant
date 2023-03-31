@@ -6,7 +6,7 @@ export const analyzeStream = (stream: any) => {
         //Construct array of 16-bit integers representing the audio data
         let out: any = [];
         for (let i = 0; i < chunk.length; i += 2) {
-            out.push(chunk.readInt16LE(i));
+            out.push(Math.abs(chunk.readInt16LE(i)));
         }
 
         //Calculate the average volume
