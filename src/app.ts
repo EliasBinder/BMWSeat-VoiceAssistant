@@ -18,4 +18,3 @@ export const wake = async () => {
         playAudio('error.mp3');
     }
 }
-
