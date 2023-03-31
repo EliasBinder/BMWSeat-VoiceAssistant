@@ -1,4 +1,4 @@
-import {wake} from "../../app";
+import {wake} from "../../../app";
 
 export default (msg: any) => {
     wake();
