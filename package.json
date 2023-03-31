@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.20.2",
+    "@types/node": "^18.15.11",
     "file-system": "^1.2.2",
     "node-microphone": "^0.1.6",
     "openai": "^3.2.1",

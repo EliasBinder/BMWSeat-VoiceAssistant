@@ -1,0 +1,37 @@
+Consider the following phrases:
+- Seat forward
+- Seat backward
+- Seat up
+- Seat down
+- Backrest forward
+- Backrest backward
+- Headrest up
+- Headrest down
+- Seat width larger
+- Seat width smaller
+- Seat longer
+- Seat shorter
+- Seat tilt more
+- Seat tilt less
+- Backrest width larger
+- Backrest width smaller
+- Neck rest forward
+- Neck rest backward
+- Lumbar lower right larger
+- Lumbar lower right smaller
+- Lumbar lower left larger
+- Lumbar lower left smaller
+- Lumbar upper right larger
+- Lumbar upper right smaller
+- Lumbar upper left larger
+- Lumbar upper left smaller
+
+Which one is most close to the following phrase in my next message?
+
+--------
+
+Put the closest match in the following JSON structure:
+
+{
+    "message": ".."
+}
