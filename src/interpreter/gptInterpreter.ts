@@ -1,6 +1,5 @@
 import openAI from "../singelton/OpenAI";
 import fs from "fs";
-import OpenAI from "../singelton/OpenAI";
 import {getPromptAfter, getPromptBefore} from "./promptLoader";
 import {extractJson} from "./jsonExtractor";
 

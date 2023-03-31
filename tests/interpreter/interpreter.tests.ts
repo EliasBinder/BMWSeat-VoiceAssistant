@@ -1,5 +1,4 @@
 import { interpretMessage } from "../../src/interpreter/gptInterpreter";
-import fs from 'fs';
 
 test('give a response/completion to a prompt', async () => {
     jest.setTimeout(1000);
