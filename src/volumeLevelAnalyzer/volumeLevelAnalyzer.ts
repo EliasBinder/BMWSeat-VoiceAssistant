@@ -1,6 +1,6 @@
 import config from "../../config.json";
 import {wake} from "../app";
-import {sendPacketToWakewordAI} from "../ioCom/udpClient/udpClient";
+import notifyWakewordAI from "../ioCom/tcpServer/abstraction/notifyWakewordAI";
 
 export let analyze = true;
 let timeout: any = null;
@@ -29,9 +29,7 @@ export const analyzeStream = (stream: any) => {
 
         //TODO: use setTimeout to avoid stopping in user's thinking time
         if (average > config.volumeThreshold) {
-
-            //TODO: MAYBE compress audio data to send to wakeword AI. Do tests to see if it's worth it
-            sendPacketToWakewordAI(chunk);
+            notifyWakewordAI();
         }
     });
 }
