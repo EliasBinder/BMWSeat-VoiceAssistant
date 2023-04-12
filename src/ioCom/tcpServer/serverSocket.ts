@@ -4,34 +4,47 @@ const net = require('net');
 const port = 5000;
 const host = '127.0.0.1';
 
-const server = net.createServer();
-server.listen(port, host, () => {
-    console.log(`📡 Server is listening on ${host}:${port}`);
-});
-
 export const clients = new Map<string, any>();
 
-server.on('connection', (socket: any) => {
-    socket.on('data', (data: any) => {
-        const parsedData = JSON.parse(data);
-        if (parsedData.hasOwnProperty('type')){
-            switch (parsedData.type) {
-                case 'handshake':
-                    if (parsedData.hasOwnProperty('role')) {
-                        clients.set(parsedData.role, socket);
-                        console.log(`📡 ${parsedData.role} connected`);
-                    }
-                    break;
-                case 'action':
-                    handle(parsedData);
-                    break;
-            }
-        }
+const createServer = () => {
+    const server = net.createServer();
+    server.listen(port, host, () => {
+        console.log(`📡 TCP Control Server is listening on ${host}:${port}`);
     });
-    socket.on('end', () => {});
-});
+
+    server.on('connection', (socket: any) => {
+        socket.on('data', (data: any) => {
+            console.log(`📡 Received data: ${data.toString()}`);
+            const parsedData = JSON.parse(data);
+            if (parsedData.hasOwnProperty('type')){
+                switch (parsedData.type) {
+                    case 'handshake':
+                        if (parsedData.hasOwnProperty('role')) {
+                            clients.set(parsedData.role, socket);
+                            console.log(`📡 ${parsedData.role} connected`);
+                        } else {
+                            console.error('📡 Could not register client! No role specified in handshake message!');
+                        }
+                        break;
+                    case 'action':
+                        handle(parsedData);
+                        break;
+                }
+            }
+        });
+
+        socket.on('end', () => {
+            clients.forEach((value: any, key: string) => {
+                if (value === socket) {
+                    clients.delete(key);
+                    console.log(`📡 ${key} disconnected`);
+                }
+            });
+        });
+    });
+}
 
 export default {
-    server,
+    createServer,
     clients
 };

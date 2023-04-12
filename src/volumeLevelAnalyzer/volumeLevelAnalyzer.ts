@@ -25,11 +25,10 @@ export const analyzeStream = (stream: any) => {
             average += value;
         });
         average /= out.length;
-        console.log('Avg: ', average);
 
         //TODO: use setTimeout to avoid stopping in user's thinking time
         if (average > config.volumeThreshold) {
-            notifyWakewordAI();
+            //notifyWakewordAI();
         }
     });
 }
