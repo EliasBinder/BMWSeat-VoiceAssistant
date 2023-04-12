@@ -14,7 +14,6 @@ const createServer = () => {
 
     server.on('connection', (socket: any) => {
         socket.on('data', (data: any) => {
-            console.log(`📡 Received data: ${data.toString()}`);
             const parsedData = JSON.parse(data);
             if (parsedData.hasOwnProperty('type')){
                 switch (parsedData.type) {
