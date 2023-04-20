@@ -1,22 +1,28 @@
 import openAI from "./singelton/OpenAI";
 import server from "./ioCom/tcpServer/serverSocket";
-import {getMicrophoneStream} from "./hardware/microphone";
-import {transcribeStream} from "./speech-to-text/speech_to_text";
+import {getMicrophoneStream, stopMicrophoneStream} from "./hardware/microphone";
+import {transcribeMicrophone, transcribeStream} from "./speech-to-text/speech_to_text";
 import {interpretMessage} from "./interpreter/gptInterpreter";
 import {playAudio} from "./hardware/speaker";
-import {analyzeStream, setAnalyze} from "./volumeLevelAnalyzer/volumeLevelAnalyzer";
+import {analyzeStream} from "./volumeLevelAnalyzer/volumeLevelAnalyzer";
+import notifyWakewordAI from "./ioCom/tcpServer/abstraction/notifyWakewordAI";
 
 //Get microphone stream
-const micStream = getMicrophoneStream();
 
 //Start volume level analyzer to detect when user is speaking
-analyzeStream(micStream);
+analyzeStream(() => {
+    console.log('[VolumeLevelAnalyzer] System is listening...');
+    notifyWakewordAI(true);
+}, () => {
+    console.log('[VolumeLevelAnalyzer] System is not listening...');
+    notifyWakewordAI(false);
+});
 
 
 //When wake word is detected or button is pressed: invoke this function
 export const wake = async () => {
-    setAnalyze(false) //Stop analyzing volume level
-    const transcript = await transcribeStream(micStream);
+    console.log('System is awake. Please speak now...')
+    const transcript = await transcribeMicrophone();
     console.log('Transcript: ', transcript);
     try {
         const gptResponse = await interpretMessage(transcript);
@@ -26,5 +32,19 @@ export const wake = async () => {
         playAudio('error.mp3');
     }
 }
+
+//Listen for CLI commands
+// const prompt = require('prompt-sync')();
+// while (true) {
+//     const action = prompt('Action: ');
+//     switch (action) {
+//         case 's':
+//             stopMicrophoneStream();
+//             break;
+//         case 'w':
+//             wake();
+//             break;
+//     }
+// }
 
 //TODO: enable analyze again
