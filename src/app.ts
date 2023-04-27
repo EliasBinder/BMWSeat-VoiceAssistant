@@ -18,7 +18,6 @@ analyzeStream(() => {
     notifyWakewordAI(false);
 });
 
-
 //When wake word is detected or button is pressed: invoke this function
 export const wake = async () => {
     console.log('System is awake. Please speak now...')
@@ -46,5 +45,7 @@ export const wake = async () => {
 //             break;
 //     }
 // }
+
+wake().then(r => console.log('finished'));
 
 //TODO: enable analyze again

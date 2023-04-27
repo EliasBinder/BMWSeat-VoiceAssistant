@@ -4,6 +4,7 @@
 ### Node ###
 #config
 ./config.json
+config.json
 
 # Logs
 logs
