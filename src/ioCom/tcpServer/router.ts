@@ -1,11 +1,10 @@
 import wake from "./handlers/wake";
 
-const handlers = [
+const handlers: any = {
     wake
-]
+}
 
-export const handle = (msg: any) => {
-    const obj = JSON.parse(msg);
+export const handle = (obj: any) => {
     if (obj.hasOwnProperty('action')) {
         handlers[obj.action](obj);
     }

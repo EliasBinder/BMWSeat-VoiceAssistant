@@ -23,8 +23,6 @@ export const analyzeStream = (onEnable: Function, onDisable: Function) => {
         });
         average /= out.length;
 
-        //console.log("[VolumeLevelAnalyzer] Average is ", average);
-
         if (average > config.volumeThreshold) {
             if (timeout != null) {
                 //console.log("[VolumeLevelAnalyzer] Timeout is not null");
@@ -45,7 +43,7 @@ export const analyzeStream = (onEnable: Function, onDisable: Function) => {
                         enableSent = false;
                         disableSent = true;
                     }
-                }, 3000);
+                }, 2000);
             }
         }
     });

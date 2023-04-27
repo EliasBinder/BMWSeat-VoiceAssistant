@@ -5,7 +5,9 @@ export default (flag: boolean) => {
         clients.get('WakewordAI').write(JSON.stringify({
             type: 'action',
             action: 'listen',
-            flag
+            data: {
+                flag
+            }
         }));
     else
         console.error('📡 WakewordAI not connected');

@@ -14,7 +14,7 @@ const createServer = () => {
 
     server.on('connection', (socket: any) => {
         socket.on('data', (data: any) => {
-            const parsedData = JSON.parse(data);
+            const parsedData = JSON.parse(data.toString());
             if (parsedData.hasOwnProperty('type')){
                 switch (parsedData.type) {
                     case 'handshake':
