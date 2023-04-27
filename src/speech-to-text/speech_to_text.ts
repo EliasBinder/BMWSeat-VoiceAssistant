@@ -9,7 +9,7 @@ export async function transcribeFile(filepath: string){
 }
 
 export async function transcribeStream(stream: ReadStream){
-
+    console.log('start transcription');
     const resp = await openAI.openai.createTranscription(
         //@ts-ignore
         stream,

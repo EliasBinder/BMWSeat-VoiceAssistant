@@ -11,9 +11,8 @@ export async function interpretMessage(userInput: string){
             {role: "user", content: userInput},
             {role: "user", content: getPromptAfter()}
         ],
-        max_tokens: 4000,
-        temperature: 0,
     });
     const fullGPTResponse = response.data.choices[0].message.content;
+    console.log('message: ' + fullGPTResponse);
     return JSON.parse(extractJson(fullGPTResponse) || '{}');
 }
