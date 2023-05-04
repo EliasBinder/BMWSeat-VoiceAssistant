@@ -1,10 +1,10 @@
-import {transcribeMicrophone, transcribeStream} from "./speech-to-text/speech_to_text";
 import {interpretMessage} from "./interpreter/gptInterpreter";
 import {playAudio} from "./hardware/speaker";
 import {analyzeStream} from "./volumeLevelAnalyzer/volumeLevelAnalyzer";
 import notifyWakewordAI from "./ioCom/tcpServer/abstraction/notifyWakewordAI";
 import serverSocket from "./ioCom/tcpServer/serverSocket";
 import {getMicrophoneStream, stopMicrophoneStream} from "./hardware/microphone";
+import {getDisablingFunc, transcribeMicrophone} from "./speech-to-text/speech_to_text";
 
 //Setup TCP server
 console.log('📡 Starting TCP server...');
@@ -18,7 +18,7 @@ analyzeStream(() => {
 }, () => {
     console.log('🎤 System is not listening...');
     notifyWakewordAI(false);
-    stopMicrophoneStream();
+    getDisablingFunc()();
 });
 
 
