@@ -34,6 +34,7 @@ export const wake = async () => {
         //TODO: process json -> move motor & play audio
     } catch (e) {
         playAudio('error.mp3');
+        console.log('❌ GPT Response JSON: ', e)
     }
 }
 

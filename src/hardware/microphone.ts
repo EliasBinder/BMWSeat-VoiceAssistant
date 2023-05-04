@@ -9,6 +9,10 @@ export const getMicrophoneStream = () => {
     return stream;
 }
 
+export const getStandaloneMicrophone = () => {
+    return new Mic();
+}
+
 export const stopMicrophoneStream = () => {
     mic.stopRecording();
     stream = null;

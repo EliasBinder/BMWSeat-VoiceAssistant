@@ -28,10 +28,4 @@ Consider the following phrases:
 
 Which one is most close to the following phrase in my next message?
 
---------
-
-Put the closest match in the following JSON structure:
-
-{
-    "message": ".."
-}
+--------------------
