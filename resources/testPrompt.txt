@@ -20,3 +20,24 @@ Additionally consider the following modes to be selectable by the user:
 Which one(if any) is closest to the following phrase in my next message and by how much?
 
 --------------------
+
+Move the seat forward a little bit and make it a bit tighter as well
+
+--------
+
+Put the closest match in the following JSON structure:
+
+[
+    {
+        "message": "...",
+        "value": "float between 0 and 1 or null if mode"
+    },
+    ...
+]
+
+If no match was found return the following JSON structure:
+
+{
+    "message": "No match found",
+    "value": null
+}
