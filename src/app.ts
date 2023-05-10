@@ -3,23 +3,26 @@ import {playAudio} from "./hardware/speaker";
 import {analyzeStream} from "./volumeLevelAnalyzer/volumeLevelAnalyzer";
 import notifyWakewordAI from "./ioCom/tcpServer/abstraction/notifyWakewordAI";
 import serverSocket from "./ioCom/tcpServer/serverSocket";
+import seatController from "./seatAPI/seatController";
 import {getMicrophoneStream, stopMicrophoneStream} from "./hardware/microphone";
 import {getDisablingFunc, transcribeMicrophone} from "./speech-to-text/speech_to_text";
 
 //Setup TCP server
 console.log('📡 Starting TCP server...');
-serverSocket.createServer();
+//serverSocket.createServer();
 
 //Start volume level analyzer to detect when user is speaking
 console.log('🎤 Starting volume level analyzer...');
+
+//seatController.makeDummyRequest();
 analyzeStream(() => {
-    console.log('🎤 System is listening...');
-    notifyWakewordAI(true);
-}, () => {
-    console.log('🎤 System is not listening...');
-    notifyWakewordAI(false);
-    getDisablingFunc()();
-});
+        notifyWakewordAI(true);
+    }, () => {
+        console.log('🎤 System is not listening...');
+        notifyWakewordAI(false);
+        getDisablingFunc()();
+    });
+console.log('🎤 System is listening...');
 
 
 //When wake word is detected or button is pressed: invoke this function

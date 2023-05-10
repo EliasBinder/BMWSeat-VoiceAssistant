@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "npx tsc",
+    "run": "node dist/src/app.js",
     "start": "npx tsc && node dist/src/app.js"
   },
   "keywords": [],
@@ -22,6 +23,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.20.2",
     "@types/node": "^18.15.11",
+    "axios": "^1.4.0",
     "file-system": "^1.2.2",
     "node-microphone": "^0.1.6",
     "openai": "^3.2.1",
