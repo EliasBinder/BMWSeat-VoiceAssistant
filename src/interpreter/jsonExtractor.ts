@@ -3,5 +3,6 @@ export const extractJson = (input: string) => {
     const regex = /{[^}]*}/g;
     const matches = input.match(regex);
     if (matches)
-        return matches[0];
+        return matches;
+    return [];
 }
