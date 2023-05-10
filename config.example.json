@@ -1,4 +1,6 @@
 {
   "Organization": "",
+  "volumeThreshold": 100,
+  "Seat_API_Endpoint": "127.0.0.1/",
   "OpenAI_API_Key": ""
 }
