@@ -1,0 +1,19 @@
+
+--------
+
+Put the closest match in the following JSON structure:
+
+[
+    {
+        "message": "...",
+        "value": "float between 0 and 1 or null if mode"
+    },
+    ...
+]
+
+If no match was found return the following JSON structure:
+
+{
+    "message": "No match found",
+    "value": null
+}
