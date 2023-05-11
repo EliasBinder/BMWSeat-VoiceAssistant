@@ -1,13 +1,13 @@
-import {transcribeMicrophone} from "../../src/speech-to-text/speech_to_text";
+import {stopTranscriptionMicrophone, transcribeMicrophone} from "../../src/speech-to-text/speech_to_text";
 import fs from 'fs';
 import {getStandaloneMicrophone, stopMicrophoneStream} from "../../src/hardware/microphone";
 import {setTimeout} from "timers/promises";
 import exp from "constants";
 
-//FIXME : update this test
-// test('transcribe a microphone stream to text for 10 seconds', async () => {
-//
-//     const text = transcribeMicrophone().then((text) => {
-//
-//     })
-// }, 14000)
+
+test('transcribe a microphone stream to text for 10 seconds. Please say: "Move my seat forward"', async () => {
+    transcribeMicrophone();
+    await setTimeout(10000, 'resolved');
+    const result = await stopTranscriptionMicrophone();
+    expect(result).toBe('Move my seat forward');
+}, 14000)
