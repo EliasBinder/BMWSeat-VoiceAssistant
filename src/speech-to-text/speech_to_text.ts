@@ -5,8 +5,6 @@ import fs, {ReadStream} from 'fs';
 import {getMicrophoneStream, getStandaloneMicrophone, stopMicrophoneStream} from "../hardware/microphone";
 import {Readable} from "stream";
 
-let disableTranscribe = () => {};
-
 export async function transcribeFile(filepath: string){
     return transcribeStream(fs.createReadStream(filepath))
 }
@@ -14,10 +12,17 @@ export async function transcribeFile(filepath: string){
 export async function transcribeStream(stream: Readable){
     //Create a file from the stream
     const outputStream = fs.createWriteStream('resources/transcription.wav');
-    stream.pipe(outputStream);
-    disableTranscribe = () => {
-        stopMicrophoneStream();
-    }
+    const mic = getStandaloneMicrophone();
+    const stream2 = mic.startRecording();
+    stream2.pipe(outputStream);
+    //Await until the stream is finished
+    await new Promise((resolve, reject) => {
+        stream.on('end', resolve);
+        stream.on('finish', resolve);
+        stream.on('error', reject);
+    });
+    stream2.unpipe(outputStream);
+    mic.stopRecording();
     //Transcribe the file
     const resp = await openAI.openai.createTranscription(
         fs.createReadStream('resources/transcription.wav'),
@@ -27,10 +32,5 @@ export async function transcribeStream(stream: Readable){
 }
 
 export async function transcribeMicrophone(){
-    stopMicrophoneStream();
     return transcribeStream(getMicrophoneStream());
-}
-
-export function getDisablingFunc(){
-    return disableTranscribe;
 }
