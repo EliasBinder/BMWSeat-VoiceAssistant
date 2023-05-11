@@ -1,29 +1,25 @@
 import {interpretMessage} from "./interpreter/gptInterpreter";
 import {playAudio} from "./hardware/speaker";
 import {analyzeStream} from "./volumeLevelAnalyzer/volumeLevelAnalyzer";
-import notifyWakewordAI from "./ioCom/tcpServer/abstraction/notifyWakewordAI";
-import serverSocket from "./ioCom/tcpServer/serverSocket";
 import seatController from "./seatAPI/seatController";
 import {getMicrophoneStream, stopMicrophoneStream} from "./hardware/microphone";
 import {startRestAPI} from "./restapi/httpServer";
 import {sendStreamData} from "./restapi/api/apiRouter";
+import {transcribeMicrophone} from "./speech-to-text/speech_to_text";
 
-//Setup TCP server
-console.log('📡 Starting TCP server...');
-//serverSocket.createServer();
+//Setup Rest API
+startRestAPI();
 
 //Start volume level analyzer to detect when user is speaking
 console.log('🎤 Starting volume level analyzer...');
 
 //seatController.makeDummyRequest();
 analyzeStream(() => {
-        notifyWakewordAI(true);
-    }, () => {
-        console.log('🎤 System is not listening...');
-        notifyWakewordAI(false);
-        getDisablingFunc()();
-    });
-console.log('🎤 System is listening...');
+    console.log('🎤 System is listening...');
+}, () => {
+    console.log('🎤 System is not listening...');
+    stopMicrophoneStream();
+});
 
 
 //When wake word is detected or button is pressed: invoke this function
@@ -43,5 +39,3 @@ export const wake = async () => {
         console.log('❌ GPT Response JSON: ', e)
     }
 }
-
-//TODO: enable analyze again
