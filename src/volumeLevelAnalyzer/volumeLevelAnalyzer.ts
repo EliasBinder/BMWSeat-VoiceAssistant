@@ -47,8 +47,4 @@ export const analyzeStream = (onEnable: Function, onDisable: Function) => {
             }
         }
     });
-
-    stream.on('end', () => {
-        analyzeStream(onEnable, onDisable);
-    });
 }
