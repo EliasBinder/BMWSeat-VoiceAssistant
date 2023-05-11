@@ -32,5 +32,11 @@ export function transcribeMicrophone(){
 }
 
 export async function stopTranscriptionMicrophone(){
-    return stopTranscription();
+    const result = await stopTranscription();
+    stopTranscription = (): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            resolve('')
+        })
+    }
+    return result;
 }
