@@ -6,3 +6,8 @@ Put the closest match in the following JSON structure:
 {
     "message": ".."
 }
+
+If no phrase is fitting, put "null" in the message field:
+{
+    "message": "null"
+}
