@@ -1,6 +1,5 @@
 import config from "../../config.json";
 import {wake} from "../app";
-import notifyWakewordAI from "../ioCom/tcpServer/abstraction/notifyWakewordAI";
 import {getMicrophoneStream} from "../hardware/microphone";
 
 
@@ -44,7 +43,7 @@ export const analyzeStream = (onEnable: Function, onDisable: Function) => {
                         enableSent = false;
                         disableSent = true;
                     }
-                }, 2000);
+                }, 1000);
             }
         }
     });

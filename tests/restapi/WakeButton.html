@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wake</title>
+</head>
+<body>
+    <style>
+        * {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        #snackbar {
+            visibility: hidden; /* Hidden by default. Visible on click */
+            min-width: 250px; /* Set a default minimum width */
+            margin-left: -125px; /* Divide value of min-width by 2 */
+            background-color: #333; /* Black background color */
+            color: #fff; /* White text color */
+            text-align: center; /* Centered text */
+            border-radius: 2px; /* Rounded borders */
+            padding: 16px; /* Padding */
+            position: fixed; /* Sit on top of the screen */
+            z-index: 1; /* Add a z-index if needed */
+            left: 50%; /* Center the snackbar */
+            bottom: 30px; /* 30px from the bottom */
+        }
+
+        /* Show the snackbar when clicking on a button (class added with JavaScript) */
+        #snackbar.show {
+            visibility: visible; /* Show the snackbar */
+            /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+            However, delay the fade out process for 2.5 seconds */
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        /* Animations to fade the snackbar in and out */
+        @-webkit-keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 50px;
+            margin-top: 30px;
+        }
+    </style>
+
+    <div class="container">
+        <div style="text-align: center" onclick="sendWake()">
+            <img src="mic.png" alt="Mic" width="160px" height="160px" style="cursor: pointer"><br/>
+            <button>Wake the Voice Control</button>
+        </div>
+    </div>
+
+    <div id="snackbar">Wake command sent</div>
+
+    <script>
+        const events = new EventSource('http://localhost:3000/api/stream');
+        events.addEventListener('message', function(e) {
+            const x = document.getElementById("snackbar");
+            // Add the "show" class to DIV
+            x.className = "show";
+            x.innerText = e.data;
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+        }, false);
+        function sendWake() {
+            fetch('http://localhost:3000/api/wake')
+                .then(resp => resp.json()).then(data => {
+                    if (data.hasOwnProperty('status') && data.status === 'ok') {
+                        const x = document.getElementById("snackbar");
+                        // Add the "show" class to DIV
+                        x.className = "show";
+                        x.innerText = 'Wake command sent'
+                        // After 3 seconds, remove the show class from DIV
+                        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1500);
+                    }
+            })
+        }
+    </script>
+</body>
+</html>
