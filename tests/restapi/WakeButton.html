@@ -71,13 +71,30 @@
             cursor: pointer;
             border-radius: 50px;
             margin-top: 30px;
+            transition: background-color .2s;
+        }
+        button:hover {
+            background-color: #3e8e41;
+        }
+        body {
+            background-color: #111111;
+        }
+        .img_mic {
+            transition: transform .2s;
+            cursor: pointer;
+        }
+        .img_mic:hover {
+            transform: scale(1.1);
         }
     </style>
 
     <div class="container">
         <div style="text-align: center" onclick="sendWake()">
-            <img src="mic.png" alt="Mic" width="160px" height="160px" style="cursor: pointer"><br/>
-            <button>Wake the Voice Control</button>
+            <img id="img_speaking" class="img_speaking" src="animation_speaking.gif" alt="Speaking" width="75%" style="display: none">
+            <img id="img_mic" class="img_mic" src="mic.png" alt="Mic" width="160px" height="160px">
+
+            <br/>
+            <button id="btn">Wake the Voice Control</button>
         </div>
     </div>
 
@@ -92,19 +109,19 @@
             x.innerText = e.data;
             // After 3 seconds, remove the show class from DIV
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+            document.getElementById('img_mic').style.display = 'inline-block';
+            document.getElementById('btn').style.display = 'inline-block';
+            document.getElementById('img_speaking').style.display = 'none';
         }, false);
         function sendWake() {
             fetch('http://localhost:3000/api/wake')
                 .then(resp => resp.json()).then(data => {
                     if (data.hasOwnProperty('status') && data.status === 'ok') {
-                        const x = document.getElementById("snackbar");
-                        // Add the "show" class to DIV
-                        x.className = "show";
-                        x.innerText = 'Wake command sent'
-                        // After 3 seconds, remove the show class from DIV
-                        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1500);
+                        document.getElementById('img_mic').style.display = 'none';
+                        document.getElementById('btn').style.display = 'none';
+                        document.getElementById('img_speaking').style.display = 'inline-block';
                     }
-            })
+                })
         }
     </script>
 </body>
