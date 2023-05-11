@@ -12,5 +12,13 @@ export async function interpretMessage(userInput: string){
         ],
     });
     const fullGPTResponse = response.data.choices[0].message.content;
-    return JSON.parse(extractJson(fullGPTResponse) || '{}');
+
+    const gptResponse = extractJson(fullGPTResponse);
+    let gptResponseJSON: string[] = [];
+
+    gptResponse.forEach((value: string) => {
+        gptResponseJSON.push(JSON.parse(value));
+    });
+
+    return gptResponseJSON;
 }

@@ -33,7 +33,9 @@ export const wake = async () => {
     console.log('Transcript: ', transcript);
     try {
         const gptResponse = await interpretMessage(transcript);
-        console.log('GPT Response JSON: ', JSON.stringify(gptResponse));
+        gptResponse.forEach((value: string) => {
+            console.log('GPT Response JSON: ', JSON.stringify(gptResponse));
+        });
         //TODO: process json -> move motor & play audio
     } catch (e) {
         playAudio('error.mp3');
