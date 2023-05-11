@@ -8,6 +8,10 @@ let disableSent = true;
 let timeout: any = null;
 
 export const analyzeStream = (onEnable: Function, onDisable: Function) => {
+    //wait 1 second before starting to analyze the stream
+    setTimeout(() => {
+        console.log('🎤 System is waiting for user input...');
+    }, 1000);
     const stream = getMicrophoneStream();
     stream.on('data', (chunk: Buffer) => {
         //Construct array of 16-bit integers representing the audio data
@@ -48,7 +52,7 @@ export const analyzeStream = (onEnable: Function, onDisable: Function) => {
         }
     });
 
-    stream.on('end', () => {
+    /*stream.on('end', () => {
         analyzeStream(onEnable, onDisable);
-    });
+    });*/
 }

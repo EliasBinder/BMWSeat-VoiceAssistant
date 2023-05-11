@@ -14,9 +14,9 @@ export async function interpretMessage(userInput: string){
     const fullGPTResponse = response.data.choices[0].message.content;
 
     const gptResponse = extractJson(fullGPTResponse);
-    let gptResponseJSON: string[] = [];
+    let gptResponseJSON: any[] = [];
 
-    gptResponse.forEach((value: string) => {
+    gptResponse.forEach((value: any) => {
         gptResponseJSON.push(JSON.parse(value));
     });
 
