@@ -7,6 +7,7 @@ export async function interpretMessage(userInput: string){
     const prompt = getPromptBefore() + userInput + getPromptAfter();
     const response = await openAI.openai.createChatCompletion({
         model: "gpt-3.5-turbo",
+        temperature: 0,
         messages: [
             {role: "user", content: prompt},
         ],
