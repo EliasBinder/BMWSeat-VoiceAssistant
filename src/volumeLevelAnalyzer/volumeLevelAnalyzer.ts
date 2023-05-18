@@ -49,7 +49,7 @@ export const analyzeStream = (onEnable: Function, onDisable: Function) => {
                 }
             }
         });
-    }, 1000);
+    }, 400);
 
     /*stream.on('end', () => {
         analyzeStream(onEnable, onDisable);
