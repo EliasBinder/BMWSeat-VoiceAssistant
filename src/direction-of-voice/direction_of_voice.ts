@@ -1,4 +1,4 @@
-import {findByIds, getDeviceList, usb} from "usb";
+import {InEndpoint, findByIds, getDeviceList, usb} from "usb";
 import {setDebugLevel} from "usb/dist/usb";
 
 
@@ -14,16 +14,20 @@ export const fetchMicrophoneInterrupts = () => {
         device.open();
 
         //Claim the interface
-        console.log(device.interfaces)
         const deviceInterface = device.interface(4);
         if (!deviceInterface) {
             console.log('Interface not found');
             return;
         }
+        let isKernelDriverActive = false;
+        if (deviceInterface.isKernelDriverActive()){
+            isKernelDriverActive = true;
+            deviceInterface.detachKernelDriver();
+        }
         deviceInterface.claim();
 
         //Get the endpoint
-        const endpoint = deviceInterface.endpoint(0x83);
+        const endpoint = deviceInterface.endpoint(0x83) as InEndpoint;
         if (!endpoint) {
             console.log('Endpoint not found');
             return;
@@ -32,11 +36,20 @@ export const fetchMicrophoneInterrupts = () => {
 
         //Monitor the endpoint
         if (isInterruptEndpoint) {
+            console.log("The specified enpoint is an interrupt endpoint.")
             // Start listening for interrupts
-            endpoint.eventNames()
+            endpoint.startPoll(1, endpoint.descriptor.wMaxPacketSize)
+            endpoint.addListener('data', (data) => {
+                console.log('Received data: ', data)
+            })
+            endpoint.addListener("error", (err) => {
+                console.log('err: ', err)
+            });
         } else {
             console.log('The specified endpoint is not an interrupt endpoint.');
         }
+
+        return [endpoint, deviceInterface, isKernelDriverActive];
     }else {
         console.log('Device not found');
     }
