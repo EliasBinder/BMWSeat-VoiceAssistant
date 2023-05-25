@@ -4,16 +4,16 @@
 Put the closest match in the following JSON structure:
 
 [
-    {
-        "message": "...",
-        "value": "float between 0 and 1 or null if mode"
-    },
-    ...
+   {
+       "message": "...",
+       "value": "Integer value between 0 and 255 or null if it is a mode"
+   },
+   ...
 ]
 
 If no match was found return the following JSON structure:
 
 {
-    "message": "No match found",
-    "value": null
+   "message": "No match found",
+   "value": null
 }

@@ -8,11 +8,12 @@ Consider the following phrases:
 - Seat tighter
 - Seat looser
 
-Furthermore, consider a value between 0 and 1 for each of the above phrases. Near 0 meaning only
- a little bit and the closer to 1 the more.
-For example, Seat forward 0.1 means move the seat a little bit and Seat forward 1 means move the seat completely forward.
+Furthermore, consider a value between 0 and 255 for each of the above phrases.
+Near 0 means only a little bit and the closer to 255, the more.
+For example, "Move the seat a bit forward" would be: "Seat forward" with a value of 30.
+"Move the seat completely forward" would be: "Seat forward" with a value of 255.
 
-Additionally consider the following modes to be selectable by the user:
+Additionally, consider the following modes to be selectable by the user:
 - Relax mode
 - Driving mode
 - Sleeping mode
@@ -20,3 +21,4 @@ Additionally consider the following modes to be selectable by the user:
 Which one(if any) is closest to the following phrase in my next message and by how much?
 
 --------------------
+
