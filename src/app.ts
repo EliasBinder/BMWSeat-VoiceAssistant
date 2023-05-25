@@ -1,11 +1,11 @@
 import {interpretMessage} from "./interpreter/gptInterpreter";
 import {playAudio} from "./hardware/speaker";
-import {analyzeStream} from "./volumeLevelAnalyzer/volumeLevelAnalyzer";
-import seatController from "./seatAPI/seatController";
+import {analyzeStream} from "./volume-level-analyzer/volumeLevelAnalyzer";
+import seatController from "./seat-API/seatController";
 import {getMicrophoneStream, stopMicrophoneStream} from "./hardware/microphone";
-import {startRestAPI} from "./restapi/httpServer";
-import {sendStreamData} from "./restapi/api/apiRouter";
-import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speech_to_text";
+import {startRestAPI} from "./rest-API/httpServer";
+import {sendStreamData} from "./rest-API/api/apiRouter";
+import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speechToText";
 
 //Setup Rest API
 startRestAPI();

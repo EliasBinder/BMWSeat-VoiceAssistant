@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 import config from "../../config.json";
-import openAI from "../singelton/OpenAI";
+import openAI from "../config/openAI";
 import fs, {ReadStream} from 'fs';
 import {getMicrophoneStream, getStandaloneMicrophone, stopMicrophoneStream} from "../hardware/microphone";
 import {Readable} from "stream";
