@@ -3,8 +3,9 @@ import {fetchMicrophoneInterrupts} from "../../src/direction-of-voice/direction_
 import {setTimeout} from "timers/promises";
 
 test('log usb interrupts for microphone', async () => {
+    //@ts-ignore
     const [endpoint, deviceInterface, isKernelDriverActive] = fetchMicrophoneInterrupts();
-    const result = await setTimeout(15000, 'resolved')
+    const result = await setTimeout(30000, 'resolved')
     endpoint?.stopPoll()
 
     deviceInterface.release(() => {
@@ -12,4 +13,4 @@ test('log usb interrupts for microphone', async () => {
             deviceInterface.attachKernelDriver();
         }
     })
-}, 17000);
+}, 33000);
