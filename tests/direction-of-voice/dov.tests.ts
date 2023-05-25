@@ -1,5 +1,5 @@
 import { Endpoint, InEndpoint } from "usb";
-import {fetchMicrophoneInterrupts} from "../../src/direction-of-voice/direction_of_voice";
+import {fetchMicrophoneInterrupts} from "../../src/direction-of-voice/directionOfVoice";
 import {setTimeout} from "timers/promises";
 
 test('log usb interrupts for microphone', async () => {

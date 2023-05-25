@@ -50,8 +50,4 @@ export const analyzeStream = (onEnable: Function, onDisable: Function) => {
             }
         });
     }, 400);
-
-    /*stream.on('end', () => {
-        analyzeStream(onEnable, onDisable);
-    });*/
 }

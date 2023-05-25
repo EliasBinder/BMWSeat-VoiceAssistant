@@ -1,5 +1,5 @@
 import {getMicrophoneStream} from "../../src/hardware/microphone";
-import {analyzeStream} from "../../src/volumeLevelAnalyzer/volumeLevelAnalyzer";
+import {analyzeStream} from "../../src/volume-level-analyzer/volumeLevelAnalyzer";
 import { setTimeout } from 'timers/promises';
 
 test('Analyze volume level', async () => {
