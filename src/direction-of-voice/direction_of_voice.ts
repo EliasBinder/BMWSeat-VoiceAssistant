@@ -36,13 +36,22 @@ export const fetchMicrophoneInterrupts = () => {
 
         //Monitor the endpoint
         if (isInterruptEndpoint) {
-            console.log("The specified enpoint is an interrupt endpoint.")
+            let timeout: NodeJS.Timeout | null = null;
+
+            console.log("The specified enpoint is an interrupt endpoint.");
             // Start listening for interrupts
-            endpoint.startPoll(1, endpoint.descriptor.wMaxPacketSize)
+            endpoint.startPoll(1, endpoint.descriptor.wMaxPacketSize);
             endpoint.addListener('data', (data) => {
-                console.log('Received data: ', data)
-            })
-            endpoint.addListener("error", (err) => {
+                if (timeout == null && data[0] === 0x06 && data[1] === 0x36) {
+                    const direction = data.readInt16LE(3);
+                    const direction2 = data.readInt8(5);
+                    console.log('Received direction1: ', direction, ' direction2: ', direction2);
+                    timeout = setTimeout(() => {
+                        timeout = null;
+                    }, 50);
+                }
+            });
+            endpoint.addListener('error', (err) => {
                 console.log('err: ', err)
             });
         } else {
