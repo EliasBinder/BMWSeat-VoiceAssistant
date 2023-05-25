@@ -6,6 +6,7 @@ import {getMicrophoneStream, stopMicrophoneStream} from "./hardware/microphone";
 import {startRestAPI} from "./rest-API/httpServer";
 import {sendStreamData} from "./rest-API/api/apiRouter";
 import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speechToText";
+import {fetchMicrophoneInterrupts, stopFetchMicrophoneInterrupts} from "./direction-of-voice/directionOfVoice";
 
 //Setup Rest API
 startRestAPI();
@@ -21,15 +22,17 @@ export const wake = async () => {
         console.log('🎤 System is not listening...');
         stopMicrophoneStream();
         const text = await stopTranscriptionMicrophone();
+        const direction = await stopFetchMicrophoneInterrupts();
         if (text.trim() !== '')
-            interpretCommand(text);
+            interpretCommand(text, direction);
     });
 
     console.log('🚀 System is awake!');
     transcribeMicrophone();
+    fetchMicrophoneInterrupts();
 }
 
-const interpretCommand = async (command: string) => {
+const interpretCommand = async (command: string, direction: number) => {
     console.log('🎤 Command: ', command);
     try {
         const gptResponse = await interpretMessage(command);
