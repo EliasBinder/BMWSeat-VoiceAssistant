@@ -6,7 +6,7 @@ Put the closest match in the following JSON structure:
 [
    {
        "message": "...",
-       "value": "Integer value between 0 and 255 or null if it is a mode"
+       "value": "either low, medium or high"
    },
    ...
 ]
