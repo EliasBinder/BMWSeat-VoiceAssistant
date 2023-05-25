@@ -8,10 +8,11 @@ Consider the following phrases:
 - Seat tighter
 - Seat looser
 
-Furthermore, consider a value between 0 and 255 for each of the above phrases.
-Near 0 means only a little bit and the closer to 255, the more.
-For example, "Move the seat a bit forward" would be: "Seat forward" with a value of 30.
-"Move the seat completely forward" would be: "Seat forward" with a value of 255.
+Furthermore, give a value of how much the seat should be moved as "low", "medium" or "high"
+"low" means only a little bit. "medium" means a good amount and "high" means completely.
+For example, "Move the seat a bit forward" would be "Seat forward" with a "low" value.
+"Move the seat a good bit forward" would be "Seat forward" with a "medium" value.
+"Move the seat completely forward" would be "Seat forward" with a value of "high".
 
 Additionally, consider the following modes to be selectable by the user:
 - Relax mode
