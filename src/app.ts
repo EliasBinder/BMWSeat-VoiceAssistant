@@ -16,9 +16,7 @@ startRestAPI();
 
 
 export const wake = async () => {
-    await analyzeStream(() => {
-        console.log('🎤 System is listening...');
-    }, async () => {
+    await analyzeStream(async () => {
         console.log('🎤 System is not listening...');
         stopMicrophoneStream();
         const text = await stopTranscriptionMicrophone();
