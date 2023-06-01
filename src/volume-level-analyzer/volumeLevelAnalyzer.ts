@@ -7,11 +7,12 @@ let enableSent = false;
 let disableSent = true;
 let timeout: any = null;
 
-export const analyzeStream = (onEnable: Function, onDisable: Function) => {
+export const analyzeStream = (onFinish: Function) => {
     //wait 1 second before starting to analyze the stream
     setTimeout(() => {
         const stream = getMicrophoneStream();
         stream.on('data', (chunk: Buffer) => {
+            console.log('Receiving data from microphone')
             //Construct array of 16-bit integers representing the audio data
             let out: any = [];
             for (let i = 0; i < chunk.length; i += 2) {
@@ -30,21 +31,11 @@ export const analyzeStream = (onEnable: Function, onDisable: Function) => {
                     //console.log("[VolumeLevelAnalyzer] Timeout is not null");
                     clearTimeout(timeout);
                     timeout = null;
-                } else {
-                    if (!enableSent) {
-                        onEnable();
-                        enableSent = true;
-                        disableSent = false;
-                    }
                 }
             }else {
                 if (timeout == null) {
                     timeout = setTimeout(() => {
-                        if (!disableSent) {
-                            onDisable();
-                            enableSent = false;
-                            disableSent = true;
-                        }
+                        onFinish();
                     }, 1000);
                 }
             }
