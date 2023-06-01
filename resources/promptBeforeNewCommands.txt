@@ -19,7 +19,7 @@ Additionally, consider the following modes to be selectable by the user:
 - Driving mode
 - Sleeping mode
 
-Which one(if any) is closest to the following phrase in my next message and by how much?
+Which one of the phrases(if any) is closest to the following phrase in my next message and by how much?
 
 --------------------
 

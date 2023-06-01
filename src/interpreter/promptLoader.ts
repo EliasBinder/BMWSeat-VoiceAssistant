@@ -5,11 +5,11 @@ let promptBefore = '';
 let promptAfter = '';
 
 const loadPromptBefore = () => {
-    return fs.readFileSync('resources/promptBefore.txt', 'utf8');
+    return fs.readFileSync('resources/promptBeforeNewCommands.txt', 'utf8');
 }
 
 const loadPromptAfter = () => {
-    return fs.readFileSync('resources/promptAfter.txt', 'utf8');
+    return fs.readFileSync('resources/promptAfterNewCommands.txt', 'utf8');
 }
 export const getPromptBefore = () => {
     if (promptBefore === '')
