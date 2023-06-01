@@ -15,19 +15,34 @@ export function transcribeMicrophone(){
     //Create a file from the stream
     const outputStream = fs.createWriteStream('resources/transcription.wav');
     const mic = getStandaloneMicrophone();
+    mic.on('error', function (error2: any) {
+        console.log(error2)
+    })
     const stream = mic.startRecording();
     stream.pipe(outputStream);
+    stream.on('end', () => {
+        console.log('mic stream ended');
+    })
+    stream.on('error', function (error2: any) {
+        console.log(error2)
+    })
 
-    stopTranscription = async () => {
+    /*stopTranscription = async () => {
         stream.unpipe(outputStream);
         mic.stopRecording();
+        let resp = {data: {text: ''}};
 
-        const resp = await openAI.openai.createTranscription(
-            fs.createReadStream('resources/transcription.wav'),
-            "whisper-1"
-        );
+        try {
+            resp = await openAI.openai.createTranscription(
+                fs.createReadStream('resources/transcription.wav'),
+                "whisper-1"
+            );
+        }catch (e){
+            console.error('whisper error')
+        }
+
         return resp.data.text;
-    };
+    };*/
 
 }
 

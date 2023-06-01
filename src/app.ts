@@ -16,18 +16,17 @@ startRestAPI();
 
 
 export const wake = async () => {
-    await analyzeStream(async () => {
+    analyzeStream(async () => {
         console.log('🎤 System is not listening...');
-        stopMicrophoneStream();
         const text = await stopTranscriptionMicrophone();
-        const direction = await stopFetchMicrophoneInterrupts();
+        //const direction = await stopFetchMicrophoneInterrupts();
         if (text.trim() !== '')
-            interpretCommand(text, direction);
+            interpretCommand(text, 1);
     });
 
-    console.log('🚀 System is awake!');
     transcribeMicrophone();
-    fetchMicrophoneInterrupts();
+    console.log('🚀 System is awake!');
+    //fetchMicrophoneInterrupts();
 }
 
 const interpretCommand = async (command: string, direction: number) => {

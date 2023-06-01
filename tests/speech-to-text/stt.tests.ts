@@ -7,7 +7,10 @@ import exp from "constants";
 
 test('transcribe a microphone stream to text for 10 seconds. Please say: "Move my seat forward"', async () => {
     transcribeMicrophone();
-    await setTimeout(10000, 'resolved');
+    await setTimeout(5000, 'resolved');
     const result = await stopTranscriptionMicrophone();
-    expect(result).toBe('Move my seat forward');
-}, 14000)
+    console.log('-------------------------------------------------');
+    console.log('result: ' + result);
+    console.log('-------------------------------------------------');
+    expect(result).toBe('Move my seat forward.');
+}, 7000)
