@@ -3,13 +3,10 @@
 
 Put the closest match in the following JSON structure:
 
-[
-   {
-       "message": "...",
-       "value": "either low, medium or high"
-   },
-   ...
-]
+{
+   "message": "...",
+   "value": "either low, medium or high"
+}
 
 If no match was found return the following JSON structure:
 
