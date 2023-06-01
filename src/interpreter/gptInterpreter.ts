@@ -11,6 +11,10 @@ export async function interpretMessage(userInput: string){
         messages: [
             {role: "user", content: prompt},
         ],
+        max_tokens: 256,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
     });*/
     const response = await openAI.openai.createCompletion({
         model: "text-davinci-003",
@@ -22,6 +26,7 @@ export async function interpretMessage(userInput: string){
         presence_penalty: 0,
     });
 
+    console.log(prompt);
     console.log("response from openai: " + response.data.choices[0].text);
     //const fullGPTResponse = response.data.choices[0].message.content;
     const fullGPTResponse = response.data.choices[0].text;
