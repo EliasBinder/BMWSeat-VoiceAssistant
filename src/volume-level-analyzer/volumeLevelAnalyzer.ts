@@ -7,12 +7,12 @@ let enableSent = false;
 let disableSent = true;
 let timeout: any = null;
 
-export const analyzeStream = (onFinish: Function) => {
+export const analyzeStream = async (onFinish: Function) => {
     //wait 1 second before starting to analyze the stream
     const mic = getStandaloneMicrophone();
     const stream = mic.startRecording();
     stream.on('data', (chunk: Buffer) => {
-        console.log('Receiving data from microphone')
+        //console.log('Receiving data from microphone')
         //Construct array of 16-bit integers representing the audio data
         let out: any = [];
         for (let i = 0; i < chunk.length; i += 2) {
@@ -25,7 +25,7 @@ export const analyzeStream = (onFinish: Function) => {
             average += value;
         });
         average /= out.length;
-        console.log('avg: ' + average);
+        //console.log('avg: ' + average);
 
         if (average > config.volumeThreshold) {
             if (timeout != null) {
@@ -34,9 +34,13 @@ export const analyzeStream = (onFinish: Function) => {
                 timeout = null;
             }
         } else {
+            console.log('under threshold');
             if (timeout == null) {
+                console.log('timeout is null');
                 timeout = setTimeout(() => {
+                    console.log('in timeout callback');
                     mic.stopRecording();
+                    console.log('stopped mic: ');
                     onFinish();
                 }, 1000);
             }
