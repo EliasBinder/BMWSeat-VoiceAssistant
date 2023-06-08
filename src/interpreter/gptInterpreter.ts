@@ -26,7 +26,7 @@ export async function interpretMessage(userInput: string){
         presence_penalty: 0,
     });
 
-    console.log(prompt);
+    //console.log(prompt);
     console.log("response from openai: " + response.data.choices[0].text);
     //const fullGPTResponse = response.data.choices[0].message.content;
     const fullGPTResponse = response.data.choices[0].text;

@@ -10,7 +10,9 @@ export const getMicrophoneStream = () => {
 }
 
 export const getStandaloneMicrophone = () => {
-    return new Mic();
+    return new Mic({
+        channels: 2
+    });
 }
 
 export const stopMicrophoneStream = () => {

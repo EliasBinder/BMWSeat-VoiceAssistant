@@ -14,22 +14,24 @@ let stopTranscription = (): Promise<string> => {
 export function transcribeMicrophone(){
     //Create a file from the stream
     const outputStream = fs.createWriteStream('resources/transcription.wav');
-    const mic = getStandaloneMicrophone();
+    /*const mic = getStandaloneMicrophone();
     mic.on('error', function (error2: any) {
-        console.log(error2)
-    })
-    const stream = mic.startRecording();
+        console.log('mic error: ' + error2)
+    })*/
+    const stream = getMicrophoneStream();
     stream.pipe(outputStream);
     stream.on('end', () => {
         console.log('mic stream ended');
     })
     stream.on('error', function (error2: any) {
-        console.log(error2)
+        console.log('stream error: ' + error2)
     })
 
     stopTranscription = async () => {
+        console.log('stop the transcription');
         stream.unpipe(outputStream);
-        mic.stopRecording();
+        //mic.stopRecording();
+        stopMicrophoneStream();
         let resp = {data: {text: ''}};
 
         try {
