@@ -27,7 +27,7 @@ export function transcribeMicrophone(){
         console.log(error2)
     })
 
-    /*stopTranscription = async () => {
+    stopTranscription = async () => {
         stream.unpipe(outputStream);
         mic.stopRecording();
         let resp = {data: {text: ''}};
@@ -38,11 +38,11 @@ export function transcribeMicrophone(){
                 "whisper-1"
             );
         }catch (e){
-            console.error('whisper error')
+            console.error('whisper error: ' + e)
         }
 
         return resp.data.text;
-    };*/
+    };
 
 }
 

@@ -10,21 +10,10 @@ import {fetchMicrophoneInterrupts, stopFetchMicrophoneInterrupts} from "./direct
 
 //Setup Rest API
 startRestAPI();
-analyzeStream(async () => {
-    console.log('🎤 System is not listening...');
-    const text = await stopTranscriptionMicrophone();
-    //const direction = await stopFetchMicrophoneInterrupts();
-    if (text.trim() !== '')
-        interpretCommand(text, 1);
-});
-
-transcribeMicrophone();
-console.log('🚀 System is awake!');
 
 //seatController.makeDummyRequest();
 
-
-export const wake = async () => {
+export const wake = () => {
     analyzeStream(async () => {
         console.log('🎤 System is not listening...');
         const text = await stopTranscriptionMicrophone();

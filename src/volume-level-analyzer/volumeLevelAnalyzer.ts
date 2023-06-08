@@ -7,7 +7,7 @@ let enableSent = false;
 let disableSent = true;
 let timeout: any = null;
 
-export const analyzeStream = async (onFinish: Function) => {
+export const analyzeStream = (onFinish: Function) => {
     //wait 1 second before starting to analyze the stream
     const mic = getStandaloneMicrophone();
     const stream = mic.startRecording();
