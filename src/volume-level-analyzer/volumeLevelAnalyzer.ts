@@ -1,6 +1,6 @@
 import config from "../../config.json";
 import {wake} from "../app";
-import {getMicrophoneStream, getStandaloneMicrophone, stopMicrophoneStream} from "../hardware/microphone";
+import {getMicrophoneStream, getStandaloneMicrophone} from "../hardware/microphone";
 
 
 let enableSent = false;
@@ -9,9 +9,9 @@ let timeout: any = null;
 
 export const analyzeStream = (onFinish: Function) => {
     //wait 1 second before starting to analyze the stream
-    /*const mic = getStandaloneMicrophone();
-    const stream = mic.startRecording();*/
-    const stream = getMicrophoneStream();
+    const mic = getStandaloneMicrophone();
+    const stream = mic.startRecording();
+    console.log('analyzing...');
     stream.on('data', (chunk: Buffer) => {
         //console.log('Receiving data from microphone')
         //Construct array of 16-bit integers representing the audio data
@@ -40,8 +40,7 @@ export const analyzeStream = (onFinish: Function) => {
                 console.log('timeout is null');
                 timeout = setTimeout(() => {
                     console.log('in timeout callback');
-                    //mic.stopRecording();
-                    stopMicrophoneStream();
+                    mic.stopRecording();
                     console.log('stopped mic: ');
                     onFinish();
                 }, 1000);
