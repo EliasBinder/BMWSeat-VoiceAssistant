@@ -11,5 +11,7 @@ transcribeMicrophone();
 console.log('running');
 
 setTimeout(() => {
-    stopTranscriptionMicrophone()
+    stopTranscriptionMicrophone().then(r =>
+        console.log('Transcription: ', r)
+    );
 }, 5000)
