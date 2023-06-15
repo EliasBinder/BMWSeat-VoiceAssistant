@@ -24,7 +24,7 @@ export const wake = () => {
 
     transcribeMicrophone();
     console.log('🚀 System is awake!');
-    fetchMicrophoneInterrupts();
+    //fetchMicrophoneInterrupts();
 }
 
 const interpretCommand = async (command: string, direction: number) => {
@@ -33,6 +33,7 @@ const interpretCommand = async (command: string, direction: number) => {
         const gptResponse = await interpretMessage(command);
         gptResponse.forEach((value: string) => {
             console.log('GPT Response JSON: ', JSON.stringify(gptResponse));
+            console.log('from direction of: ' + (direction > 1 ? 'driver' : 'passenger'));
         });
         //TODO: process json -> move motor & play audio
         sendStreamData({"actions": gptResponse});

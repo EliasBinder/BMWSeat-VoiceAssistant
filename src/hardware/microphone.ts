@@ -11,7 +11,11 @@ export const startMicrophoneStream = (name: string) => {
 }
 
 export const recordMicrophoneStream = (name: string) => {
-    processes.set(name, spawn('bash', ['resources/child-processes/mic-recording.sh']));
+    try {
+        processes.set(name, spawn('bash', ['resources/child-processes/mic-recording.sh']));
+    } catch (e){
+        console.log(e);
+    }
 }
 
 export const getMicrophoneStream = (name: string) => {
