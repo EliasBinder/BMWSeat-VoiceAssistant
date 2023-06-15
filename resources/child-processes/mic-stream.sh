@@ -19,7 +19,7 @@ fi
 
 if [ "$OS" == "linux" ]; then
         # Linux
-        arecord -c 1 -r 16 -f S16_LE -D default
+        arecord -c 1 -r 16 -f S16_LE -D hw:1,0
 elif [ "$OS" == "mac" ]; then
         # Mac
         rec -q -b 16 -c 1 -r 16000 -e unsigned-integer -t wav -

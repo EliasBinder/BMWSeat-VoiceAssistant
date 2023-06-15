@@ -2,7 +2,7 @@
 
 # Delete old audio file
 
-rm resources/transcription.wav
+rm -f resources/transcription.wav
 
 # Get OS
 
