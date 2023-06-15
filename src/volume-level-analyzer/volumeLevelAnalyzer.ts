@@ -11,7 +11,7 @@ export const analyzeStream = (onFinish: Function) => {
     //wait 1 second before starting to analyze the stream
     startMicrophoneStream('volume-level-analyzer');
     // @ts-ignore
-    getMicrophoneStream('volume-level-analyzer').on('data', (chunk: Buffer) => {
+    getMicrophoneStream('volume-level-analyzer').stdout.on('data', (chunk: Buffer) => {
         //console.log('Receiving data from microphone')
         //Construct array of 16-bit integers representing the audio data
         let out: any = [];
