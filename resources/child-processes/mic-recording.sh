@@ -30,5 +30,5 @@ if [ "$OS" == "linux" ]; then
         arecord -c 2 -r 16 -f S16_LE -D default > resources/transcription.wav
 elif [ "$OS" == "mac" ]; then
         # Mac
-        rec -q -b 16 -c 1 -r 16000 -e unsigned-integer -t wav - > resources/transcription.wav
+        rec -q -b 16 -c 1 -r 16000 -e signed-integer -t wav - > resources/transcription.wav
 fi

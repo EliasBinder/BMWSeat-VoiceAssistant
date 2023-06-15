@@ -26,7 +26,7 @@ export const analyzeStream = (onFinish: Function) => {
         });
         average /= out.length;
 
-        console.debug('avg: ' + average);
+        console.log('avg: ' + average);
 
         if (average > config.volumeThreshold) {
             if (timeout != null) {
