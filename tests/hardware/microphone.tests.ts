@@ -1,4 +1,4 @@
-import {getMicrophoneStream, recordMicrophoneStream, stopMicrophoneStream} from "../../src/hardware/microphone";
+import {recordMicrophoneStream, stopMicrophoneStream} from "../../src/hardware/microphone";
 import { setTimeout } from 'timers/promises';
 import fs from 'fs';
 
