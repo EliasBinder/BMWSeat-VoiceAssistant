@@ -6,6 +6,6 @@ test('Analyze volume level', async () => {
     analyzeStream( () => {
         console.log('🎤 System is not listening...');
     });
-    const result = await _setTimeout(30000, 'resolved')
+    const result = await _setTimeout(7000, 'resolved')
     expect(1).toBe(1);
-}, 33000);
+}, 10000);
