@@ -24,7 +24,7 @@ export const wake = () => {
 
     transcribeMicrophone();
     console.log('🚀 System is awake!');
-    //fetchMicrophoneInterrupts();
+    fetchMicrophoneInterrupts();
 }
 
 const interpretCommand = async (command: string, direction: number) => {

@@ -1,6 +1,4 @@
 import {stopTranscriptionMicrophone, transcribeMicrophone} from "../../src/speech-to-text/speechToText";
-import fs from 'fs';
-import {getStandaloneMicrophone, stopMicrophoneStream} from "../../src/hardware/microphone";
 import {setTimeout} from "timers/promises";
 import exp from "constants";
 

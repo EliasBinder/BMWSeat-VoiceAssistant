@@ -2,8 +2,8 @@ import { Configuration, OpenAIApi } from "openai";
 import config from "../../config.json";
 import openAI from "../config/openAI";
 import fs, {ReadStream} from 'fs';
-import {getMicrophoneStream, getStandaloneMicrophone, stopMicrophoneStream} from "../hardware/microphone";
 import {Readable} from "stream";
+import {recordMicrophoneStream, stopMicrophoneStream} from "../hardware/microphone";
 
 let stopTranscription = (): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -13,24 +13,11 @@ let stopTranscription = (): Promise<string> => {
 
 export function transcribeMicrophone(){
     //Create a file from the stream
-    const outputStream = fs.createWriteStream('resources/transcription.wav');
-    const mic = getStandaloneMicrophone();
-    mic.on('error', function (error2: any) {
-        console.log('mic error: ' + error2)
-    })
-    const stream = mic.startRecording();
-    stream.pipe(outputStream);
-    stream.on('end', () => {
-        console.log('mic stream ended');
-    })
-    stream.on('error', function (error2: any) {
-        console.log('stream error: ' + error2)
-    })
+    recordMicrophoneStream('transcription');
 
     stopTranscription = async () => {
         console.log('stop the transcription');
-        stream.unpipe(outputStream);
-        mic.stopRecording();
+        stopMicrophoneStream('transcription');
         let resp = {data: {text: ''}};
 
         try {

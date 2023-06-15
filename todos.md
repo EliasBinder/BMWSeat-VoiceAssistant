@@ -1,8 +1,5 @@
 # Unofficial ToDo List
 
-- Fix double wakeword detected problem
-- Fix the problem of using 2 mic streams
-- Continue Unit tests
-- Use 2nd delayed stream for wakeword
-- make wakeword ai multi threaded
-- error handling for main application
+- Wait 1 second before analyzing audio
+- Add a "stop" button if required
+- Combine volume-level-analyzer, transcription and mic interrupts

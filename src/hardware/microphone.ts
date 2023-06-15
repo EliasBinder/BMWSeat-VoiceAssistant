@@ -1,21 +1,24 @@
-const Mic = require('node-microphone');
-const mic = new Mic();
+import {ChildProcess} from "child_process";
 
-let stream: any = null;
+const { spawn } = require('child_process');
 
-export const getMicrophoneStream = () => {
-    if (stream == null || stream.ended || stream.finished || stream.destroyed)
-        stream = mic.startRecording();
-    return stream;
+let processes: Map<string, ChildProcess> = new Map<string, ChildProcess>
+
+export const startMicrophoneStream = (name: string) => {
+    processes.set(name, spawn('bash', ['resources/child-processes/mic-stream.sh']));
 }
 
-export const getStandaloneMicrophone = () => {
-    return new Mic({
-        channels: 2
-    });
+export const recordMicrophoneStream = (name: string) => {
+    processes.set(name, spawn('bash', ['resources/child-processes/mic-recording.sh']));
 }
 
-export const stopMicrophoneStream = () => {
-    mic.stopRecording();
-    stream = null;
+export const getMicrophoneStream = (name: string) => {
+    return processes.get(name);
+}
+
+export const stopMicrophoneStream = (name: string) => {
+    if (!processes.has(name)) return;
+    // @ts-ignore
+    processes.get(name).kill();
+    processes.delete(name);
 }

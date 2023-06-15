@@ -1,11 +1,11 @@
 import {getMicrophoneStream} from "../../src/hardware/microphone";
 import {analyzeStream} from "../../src/volume-level-analyzer/volumeLevelAnalyzer";
-import { setTimeout } from 'timers/promises';
+import { setTimeout as _setTimeout } from 'timers/promises';
 
 test('Analyze volume level', async () => {
-    await analyzeStream( () => {
+    analyzeStream( () => {
         console.log('🎤 System is not listening...');
     });
-    const result = await setTimeout(30000, 'resolved')
+    const result = await _setTimeout(30000, 'resolved')
     expect(1).toBe(1);
 }, 33000);
