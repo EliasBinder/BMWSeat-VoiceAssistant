@@ -1,42 +1,91 @@
 import openAI from "../config/openAI";
-import fs from "fs";
-import {getPromptAfter, getPromptBefore} from "./promptLoader";
-import {extractJson} from "./jsonExtractor";
 
 export async function interpretMessage(userInput: string){
-    const prompt = getPromptBefore() + userInput + getPromptAfter();
-    /*const response = await openAI.openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        temperature: 0,
+    const response = await openAI.openai.createChatCompletion({
+        model: "gpt-3.5-turbo-0613",
         messages: [
-            {role: "user", content: prompt},
+            {role: "system", content: "You are a helpful assistant that moves a car seat"},
+            {role: "user", content: userInput},
         ],
-        max_tokens: 256,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-    });*/
-    const response = await openAI.openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: prompt,
-        temperature: 0,
-        max_tokens: 256,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
+        functions: [
+            {
+                name: "move_seat_horizontal",
+                description: "Moves the car seat forward or backward",
+                parameters: {
+                    type: "object",
+                    properties: {
+                        distance: {
+                            type: "integer",
+                            description: "The distance to move the car seat forward. Positive values move the seat forward, negative values move the seat backward. Must be a number between -255 and 255",
+                        }
+                    },
+                    required: ["distance"],
+                }
+            },
+            {
+                name: "move_seat_vertical",
+                description: "Moves the car seat up or down",
+                parameters: {
+                    type: "object",
+                    properties: {
+                        distance: {
+                            type: "integer",
+                            description: "The distance to move the car seat up. Positive values move the seat up, negative values move the seat down. Must be a number between -255 and 255",
+                        }
+                    },
+                    required: ["distance"],
+                }
+            },
+            {
+                name: "move_backrest",
+                description: "Moves the backrest of the car seat forward or backward",
+                parameters: {
+                    type: "object",
+                    properties: {
+                        distance: {
+                            type: "integer",
+                            description: "The distance to move the backrest forward. Positive values move the backrest forward, negative values move the backrest backward. Must be a number between -255 and 255",
+                        }
+                    },
+                    required: ["distance"],
+                }
+            },
+            {
+                name: "strengthen_seat",
+                description: "Makes the car seat tighter or looser",
+                parameters: {
+                    type: "object",
+                    properties: {
+                        distance: {
+                            type: "boolean",
+                            description: "The distance to make the car seat tighter. True makes the seat tighter, false makes the seat looser.",
+                        }
+                    },
+                    required: ["distance"],
+                }
+            },
+            {
+                name: "enable_mode",
+                description: "Enables a mode. Modes are: Relax, Driving and Sleeping",
+                parameters: {
+                    type: "object",
+                    properties: {
+                        mode: {
+                            type: "string",
+                            description: "The mode to enable. Must be one of: Relax, Driving, Sleeping",
+                        }
+                    },
+                    required: ["mode"],
+                }
+            }
+
+        ],
+        function_call: "auto"
     });
 
-    //console.log(prompt);
-    console.log("response from openai: " + response.data.choices[0].text);
-    //const fullGPTResponse = response.data.choices[0].message.content;
-    const fullGPTResponse = response.data.choices[0].text;
+    const completion = response.data.choices[0].message
 
-    const gptResponse = extractJson(fullGPTResponse);
-    let gptResponseJSON: any[] = [];
+    console.log("text response from openai: " + response.data.choices[0].text);
 
-    gptResponse.forEach((value: any) => {
-        gptResponseJSON.push(JSON.parse(value));
-    });
-
-    return gptResponseJSON;
+    return completion.function_call;
 }
