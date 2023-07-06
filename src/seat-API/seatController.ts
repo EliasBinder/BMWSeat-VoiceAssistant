@@ -1,18 +1,39 @@
 import { requestHandler } from './requestHandler';
 import { ErrorMessage} from "./errorResponse";
 
-const enableMode = (mode: string) => {
+//TODO: implement according to the API documentation
+
+export const enableMode = (mode: string) => {
     //or if we have to handle it => get mode settings from config.json
-    return handleResponse(requestHandler('post', 'enableMode', { mode }));
+    return handleResponse(requestHandler({ mode }));
 }
 
-const disableMode = (mode: string) => {
-    //or if we have to handle it => get default settings(or how they were before mode activation) from config.json
-    return handleResponse(requestHandler('post', 'disableMode', { mode }));
+export const moveHorizontal = (seat: 'DS' | 'PS', value: number) => {
+    return handleResponse(requestHandler({
+        HexId: 73636531,
+        Input: seat + '#01#' + (value > 0 ? 'p' : 'n') + value
+    }));
 }
 
-const moveForward = () => {
-    return handleResponse(requestHandler('post', 'moveForward', {}));
+export const moveVertical = (seat: 'DS' | 'PS', value: number) => {
+    return handleResponse(requestHandler({
+        HexId: 73636531,
+        Input: seat + '#02#' + (value > 0 ? 'p' : 'n') + value
+    }));
+}
+
+export const moveBackrest = (seat: 'DS' | 'PS', value: number) => {
+    return handleResponse(requestHandler({
+        HexId: 73636531,
+        Input: seat + '#03#' + (value > 0 ? 'p' : 'n') + value
+    }));
+}
+
+export const strengthen = (seat: 'DS' | 'PS', value: number) => {
+    return handleResponse(requestHandler({
+        HexId: 73636531,
+        Input: seat + '#04#' + (value > 0 ? 'p' : 'n') + value
+    }));
 }
 
 const handleResponse = (response: Promise<any>) => {
@@ -24,9 +45,3 @@ const handleResponse = (response: Promise<any>) => {
         return e;
     });
 }
-
-export default {
-    enableMode,
-    disableMode,
-    moveForward
-};

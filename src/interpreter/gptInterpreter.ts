@@ -73,7 +73,7 @@ export async function interpretMessage(userInput: string){
                     properties: {
                         distance: {
                             type: "boolean",
-                            description: "The distance to make the car seat tighter or looser. Use TRUE for making it tighter and FALSE for making it looser",
+                            description: "Make the car seat tighter or looser. Use TRUE for making it tighter and FALSE for making it looser",
                         }
                     },
                     required: ["distance"],

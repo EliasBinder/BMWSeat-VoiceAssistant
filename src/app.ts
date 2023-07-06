@@ -4,6 +4,7 @@ import {analyzeStream} from "./volume-level-analyzer/volumeLevelAnalyzer";
 import {startRestAPI} from "./rest-API/httpServer";
 import {sendStreamData} from "./rest-API/api/apiRouter";
 import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speechToText";
+import {processResponse} from "./seat-API/seatCommandMapper";
 
 //Setup Rest API
 startRestAPI();
@@ -30,7 +31,8 @@ const interpretCommand = async (command: string, direction: number) => {
         const gptResponse = await interpretMessage(command);
         //TODO: process json -> move motor & play audio
         console.log('✅ GPT Response: ', JSON.stringify(gptResponse));
-        sendStreamData({"actions": gptResponse});
+        sendStreamData(gptResponse);
+        processResponse(gptResponse);
     } catch (e) {
         playAudio('error.mp3');
         console.log('❌ GPT Response JSON: ', e);
