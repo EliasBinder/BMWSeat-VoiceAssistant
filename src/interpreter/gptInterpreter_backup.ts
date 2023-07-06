@@ -17,16 +17,12 @@ export async function interpretMessage(userInput: string){
                 parameters: {
                     type: "object",
                     properties: {
-                        direction: {
-                            type: "boolean",
-                            description: "The direction to move the car seat. True for forward, false for backward",
-                        },
                         distance: {
-                            type: "string",
-                            description: "The distance to move the car seat forward or backward. Use one of the following valued: 'low', 'medium' or 'high'.",
+                            type: "integer",
+                            description: "The distance to move the car seat forward. Positive values move the seat forward, negative values move the seat backward. Must be a number between -255 and 255",
                         }
                     },
-                    required: ["direction", "distance"],
+                    required: ["distance"],
                 }
             },
             {
@@ -35,16 +31,12 @@ export async function interpretMessage(userInput: string){
                 parameters: {
                     type: "object",
                     properties: {
-                        direction: {
-                            type: "boolean",
-                            description: "The direction to move the car seat. True for up, false for down",
-                        },
                         distance: {
-                            type: "string",
-                            description: "The distance to move the car seat up or down. Use one of the following valued: 'low', 'medium' or 'high'.",
+                            type: "integer",
+                            description: "The distance to move the car seat up. Positive values move the seat up, negative values move the seat down. Must be a number between -255 and 255",
                         }
                     },
-                    required: ["direction", "distance"],
+                    required: ["distance"],
                 }
             },
             {
@@ -53,16 +45,12 @@ export async function interpretMessage(userInput: string){
                 parameters: {
                     type: "object",
                     properties: {
-                        direction: {
-                            type: "boolean",
-                            description: "The direction to move the car seat. True for forward, false for backward",
-                        },
                         distance: {
-                            type: "string",
-                            description: "The distance to move the backrest forward or backward. Use one of the following valued: 'low', 'medium' or 'high'.",
+                            type: "integer",
+                            description: "The distance to move the backrest forward. Positive values move the backrest forward, negative values move the backrest backward. Must be a number between -255 and 255",
                         }
                     },
-                    required: ["direction", "distance"],
+                    required: ["distance"],
                 }
             },
             {
@@ -73,7 +61,7 @@ export async function interpretMessage(userInput: string){
                     properties: {
                         distance: {
                             type: "boolean",
-                            description: "The distance to make the car seat tighter or looser. Use TRUE for making it tighter and FALSE for making it looser",
+                            description: "The distance to make the car seat tighter. True makes the seat tighter, false makes the seat looser.",
                         }
                     },
                     required: ["distance"],
@@ -87,7 +75,7 @@ export async function interpretMessage(userInput: string){
                     properties: {
                         mode: {
                             type: "string",
-                            description: "The mode to enable. Must be 'Relax', 'Driving' or 'Sleeping'",
+                            description: "The mode to enable. Must be one of: Relax, Driving, Sleeping",
                         }
                     },
                     required: ["mode"],

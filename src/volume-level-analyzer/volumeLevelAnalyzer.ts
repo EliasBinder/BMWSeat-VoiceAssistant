@@ -1,13 +1,13 @@
 import config from "../../config.json";
-import {wake} from "../app";
 import {getMicrophoneStream, startMicrophoneStream, stopMicrophoneStream} from "../hardware/microphone";
 
 
-let enableSent = false;
-let disableSent = true;
 let timeout: any = null;
 
 export const analyzeStream = (onFinish: Function) => {
+    let startedSpeaking = false;
+    let isFirstProcessed = false;
+
     //wait 1 second before starting to analyze the stream
     startMicrophoneStream('volume-level-analyzer');
     // @ts-ignore
@@ -26,22 +26,25 @@ export const analyzeStream = (onFinish: Function) => {
         });
         average /= out.length;
 
-        console.log('avg: ' + average);
+        console.log('🎤 Volume: ', average)
+        console.log('🎤 Started speaking: ', startedSpeaking)
+
+        if (!isFirstProcessed) {
+            //Wav headers will be included for first level calculation --> ignore
+            isFirstProcessed = true;
+            return;
+        }
 
         if (average > config.volumeThreshold) {
+            startedSpeaking = true;
             if (timeout != null) {
-                //console.log("[VolumeLevelAnalyzer] Timeout is not null");
                 clearTimeout(timeout);
                 timeout = null;
             }
         } else {
-            console.log('under threshold');
-            if (timeout == null) {
-                console.log('timeout is null');
+            if (timeout == null && startedSpeaking) {
                 timeout = setTimeout(() => {
-                    console.log('in timeout callback');
                     stopMicrophoneStream('volume-level-analyzer');
-                    console.log('stopped mic: ');
                     onFinish();
                 }, 1000);
             }

@@ -16,7 +16,6 @@ export function transcribeMicrophone(){
     recordMicrophoneStream('transcription');
 
     stopTranscription = async () => {
-        console.log('stop the transcription');
         stopMicrophoneStream('transcription');
         let resp = {data: {text: ''}};
 

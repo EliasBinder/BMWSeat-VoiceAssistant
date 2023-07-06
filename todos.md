@@ -1,5 +1,8 @@
 # Unofficial ToDo List
 
-- Wait 1 second before analyzing audio
-- Add a "stop" button if required
-- Combine volume-level-analyzer, transcription and mic interrupts
+- Remove limit of 3 commands per minute
+- (Optional) Use GPT 4 model
+- Refactor volume level analyzer
+- Send commands to API
+- (Optional) Play feedback sound
+- Optimize prompt for edge case scenarios

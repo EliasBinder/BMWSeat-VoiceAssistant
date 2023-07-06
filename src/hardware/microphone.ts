@@ -28,10 +28,9 @@ export const stopMicrophoneStream = (name: string) => {
     // @ts-ignore
     terminate(pid, function (err) {
         if (err) { // you will get an error if you did not supply a valid process.pid
-            console.log('Oopsy:', err); // handle errors in your preferred way.
+            console.log('Error:', err); // handle errors in your preferred way.
         }
         else {
-            console.log('done'); // terminating the Processes succeeded.
             // NOTE: The above won't be run in this example as the process itself will be killed before.
         }
     });
