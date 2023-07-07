@@ -7,18 +7,18 @@ import config from '../../config.json';
 export const requestHandler = async (params: any) => {
     try {
         const response = await axios({
-            method: 'POST',
+            method: 'post',
             url: config.Seat_API_Endpoint,
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Grpc-Metadata-Authorization': config.Seat_API_Authorization
             },
-            data: JSON.stringify({ params })
+            data: { ...params }
         });
         return response.data;
     } catch (e) {
         console.log('Error: ', e);
-        return e;
+        throw e;
     }
 }

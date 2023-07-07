@@ -6,5 +6,10 @@ test('Move seat vertical', () => {
             console.log('Response: ');
             console.log(JSON.stringify(response));
             expect(response).toBe('OK');
+        })
+        .catch((e) => {
+            console.log('Error: ');
+            console.log(JSON.stringify(e));
+            expect(e).toBe('OK');
         });
 })
