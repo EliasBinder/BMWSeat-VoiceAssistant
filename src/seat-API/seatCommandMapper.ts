@@ -1,6 +1,8 @@
 import {enableMode, moveBackrest, moveHorizontal, moveVertical, strengthen} from "./seatController";
 
 export const processResponse = (gptResponse: any, seat: 'DS' | 'PS') => {
+    if (!gptResponse.name)
+        return;
     switch (gptResponse.name) {
         case 'move_seat_horizontal':
             moveHorizontal(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));

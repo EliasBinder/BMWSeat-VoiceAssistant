@@ -29,10 +29,9 @@ export const wake = () => {
 const interpretCommand = async (command: string, direction: number) => {
     try {
         const gptResponse = await interpretMessage(command);
-        //TODO: process json -> move motor & play audio
         console.log('✅ GPT Response: ', JSON.stringify(gptResponse));
         sendStreamData(gptResponse);
-        processResponse(gptResponse);
+        processResponse(gptResponse, direction >= 0 ? 'DS' : 'PS');
     } catch (e) {
         playAudio('error.mp3');
         console.log('❌ GPT Response JSON: ', e);
