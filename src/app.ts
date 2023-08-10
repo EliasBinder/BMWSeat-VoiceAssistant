@@ -3,7 +3,7 @@ import {playAudio} from "./hardware/speaker";
 import {analyzeStream} from "./volume-level-analyzer/volumeLevelAnalyzer";
 import {startRestAPI} from "./rest-API/httpServer";
 import {sendStreamData} from "./rest-API/api/apiRouter";
-import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speechToText";
+import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speechToText"; //Use local whisper
 import {processResponse} from "./seat-API/seatCommandMapper";
 
 //Setup Rest API
@@ -30,7 +30,6 @@ const interpretCommand = async (command: string, direction: number) => {
     try {
         const gptResponse = await interpretMessage(command);
         console.log('✅ GPT Response: ', JSON.stringify(gptResponse));
-        sendStreamData(gptResponse);
         processResponse(gptResponse, direction >= 0 ? 'DS' : 'PS');
     } catch (e) {
         playAudio('error.mp3');

@@ -8,32 +8,82 @@ export const enableMode = async (mode: string) => {
 }
 
 export const moveHorizontal = async (seat: 'DS' | 'PS', value: number) => {
+    console.log('x', seat + '#01#' + (value > 0 ? 'p' : 'n') + value)
     return handleResponse(requestHandler({
         HexId: "73636531",
         Input: seat + '#01#' + (value > 0 ? 'p' : 'n') + value
-    }));
+    }))
+        .then((response) => {
+            setTimeout(() => {
+                console.log('Stopping motor')
+                handleResponse(requestHandler({
+                    HexId: "73636531",
+                    Input: seat + '#00#p0'
+                }));
+            }, 4000);
+            return response;
+        });
 }
 
 export const moveVertical = async (seat: 'DS' | 'PS', value: number) => {
     return handleResponse(requestHandler({
         HexId: "73636531",
         Input: seat + '#02#' + (value > 0 ? 'p' : 'n') + value
-    }));
+    }))
+        .then((response) => {
+            setTimeout(() => {
+                console.log('Stopping motor')
+                handleResponse(requestHandler({
+                    HexId: "73636531",
+                    Input: seat + '#00#p0'
+                }));
+            }, 4000);
+            return response;
+        });
 }
 
 export const moveBackrest = async (seat: 'DS' | 'PS', value: number) => {
     return handleResponse(requestHandler({
         HexId: "73636531",
         Input: seat + '#03#' + (value > 0 ? 'p' : 'n') + value
-    }));
+    }))
+        .then((response) => {
+            setTimeout(() => {
+                console.log('Stopping motor')
+                handleResponse(requestHandler({
+                    HexId: "73636531",
+                    Input: seat + '#00#p0'
+                }));
+            }, 4000);
+            return response;
+        });
+}
+
+export const incline = async (seat: 'DS' | 'PS', value: number) => {
+    return handleResponse(requestHandler({
+        HexId: "73636531",
+        Input: seat + '#04#' + (value > 0 ? 'p' : 'n') + value
+    }))
+        .then((response) => {
+            setTimeout(() => {
+                console.log('Stopping motor')
+                handleResponse(requestHandler({
+                    HexId: "73636531",
+                    Input: seat + '#00#p0'
+                }));
+            }, 4000);
+            return response;
+        });
 }
 
 export const strengthen = async (seat: 'DS' | 'PS', value: number) => {
     return handleResponse(requestHandler({
         HexId: "73636531",
-        Input: seat + '#04#' + (value > 0 ? 'p' : 'n') + value
+        Input: seat + '#05#' + (value > 0 ? 'p' : 'n') + value
     }));
 }
+
+
 
 const handleResponse = (response: Promise<any>) => {
     return response.then(response => {

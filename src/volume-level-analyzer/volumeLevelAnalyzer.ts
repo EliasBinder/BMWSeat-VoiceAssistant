@@ -46,7 +46,7 @@ export const analyzeStream = (onFinish: Function) => {
                 timeout = setTimeout(() => {
                     stopMicrophoneStream('volume-level-analyzer');
                     onFinish();
-                }, 1000);
+                }, 500);
             }
         }
     });

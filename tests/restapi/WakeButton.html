@@ -101,20 +101,8 @@
     <div id="snackbar">Wake command sent</div>
 
     <script>
-        const events = new EventSource('http://localhost:3000/api/stream');
-        events.addEventListener('message', function(e) {
-            const x = document.getElementById("snackbar");
-            // Add the "show" class to DIV
-            x.className = "show";
-            x.innerText = e.data;
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
-            document.getElementById('img_mic').style.display = 'inline-block';
-            document.getElementById('btn').style.display = 'inline-block';
-            document.getElementById('img_speaking').style.display = 'none';
-        }, false);
         function sendWake() {
-            fetch('http://localhost:3000/api/wake')
+            fetch('http://10.8.0.11:3000/api/wake')
                 .then(resp => resp.json()).then(data => {
                     if (data.hasOwnProperty('status') && data.status === 'ok') {
                         document.getElementById('img_mic').style.display = 'none';
