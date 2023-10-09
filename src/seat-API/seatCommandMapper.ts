@@ -1,4 +1,4 @@
-import {enableMode, incline, moveBackrest, moveHorizontal, moveVertical, strengthen} from "./seatController";
+import {enableMode, moveBackrest, moveHorizontal, moveShoulder, setSize} from "./seatController";
 
 export const processResponse = (gptResponse: any, seat: 'DS' | 'PS') => {
     if (!gptResponse.name)
@@ -8,17 +8,14 @@ export const processResponse = (gptResponse: any, seat: 'DS' | 'PS') => {
         case 'move_seat_horizontal':
             moveHorizontal(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
             break;
-        case 'move_seat_vertical':
-            moveVertical(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
-            break;
         case 'move_backrest':
             moveBackrest(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
             break;
-        case 'incline_seat':
-            incline(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
+        case 'move_sholder':
+            moveShoulder(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
             break;
-        case 'strengthen_seat':
-            strengthen(seat, 255 * (gptResponse.arguments.direction ? 1 : -1)); //FIXME: mapValues(gptResponse.arguments.strength));
+        case 'set_size':
+            setSize(seat, gptResponse.arguments.size);
             break;
         case 'enable_mode':
             enableMode(gptResponse.arguments.mode);

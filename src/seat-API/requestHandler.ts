@@ -4,17 +4,14 @@
 import axios from 'axios';
 import config from '../../config.json';
 
-export const requestHandler = async (params: any) => {
+export const requestHandler = async (endpoint: string) => {
     try {
         const response = await axios({
-            method: 'post',
-            url: config.Seat_API_Endpoint,
+            method: 'get',
+            url: config.Seat_API_Endpoint + endpoint,
             headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
                 'Grpc-Metadata-Authorization': config.Seat_API_Authorization
-            },
-            data: { ...params }
+            }
         });
         return response.data;
     } catch (e) {

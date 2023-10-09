@@ -69,13 +69,13 @@ export default [
     },
     {
         name: "enable_mode",
-        description: "Enables a mode. Modes are: Relax, Driving and Sleeping",
+        description: "Enables a mode. Modes are: Parking, Exit, Entry and Comfort. The Entry and Exit mode allow the user to get in and out of their seat more easily",
         parameters: {
             type: "object",
             properties: {
                 mode: {
                     type: "string",
-                    description: "The mode to enable. Must be 'Relax', 'Driving' or 'Sleeping'",
+                    description: "The mode to enable. Must be 'Parking', 'Exit', 'Entry' or 'Comfort'",
                 }
             },
             required: ["mode"],

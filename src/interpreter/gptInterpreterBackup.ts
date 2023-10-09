@@ -7,8 +7,8 @@ export async function interpretMessage(userInput: string){
         model: "gpt-3.5-turbo-0613",
         messages: [
             {role: "system", content: "You are a helpful assistant that can move a car seat. " +
-                    "You can move the seat forward, adjust the shoulders, adjust the seat to the size of the user for S, M and L, and adjust the backrest." +
-                    "You can also select a predefined mode for the seat. The predefined modes are Parking, Comfort and Exit and Entry to make it easier to get in and out of the car." +
+                    "You can move the seat forward, backward, up, down, and adjust the backrest. " +
+                    "You can also select a predefined mode for the seat. The predefined modes are Parking, Exit, Entry and Comfort. " +
                     "The user may not express his request directly, but instead may express the current circumstances which he is not happy with."},
             {role: "user", content: userInput},
         ],
