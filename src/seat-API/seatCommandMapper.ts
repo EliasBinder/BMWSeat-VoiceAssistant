@@ -11,7 +11,7 @@ export const processResponse = (gptResponse: any, seat: 'DS' | 'PS') => {
         case 'move_backrest':
             moveBackrest(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
             break;
-        case 'move_sholder':
+        case 'move_shoulder':
             moveShoulder(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
             break;
         case 'set_size':
@@ -20,6 +20,8 @@ export const processResponse = (gptResponse: any, seat: 'DS' | 'PS') => {
         case 'enable_mode':
             enableMode(gptResponse.arguments.mode);
             break;
+        default:
+            console.error("Undefined action!");
     }
 }
 

@@ -35,7 +35,7 @@ export const moveBackrest = async (seat: 'DS' | 'PS', value: number) => {
 export const setSize = async (seat: 'DS' | 'PS', value: 'S' | 'M' | 'L') => {
     const availSizes = ['S', 'M', 'L']
     const promises = [];
-    for (let _size in availSizes) {
+    for (let _size of availSizes) {
         promises.push(handleResponse(requestHandler(
             '/switch/vacust/IN11-SIZE-' + _size + '/' + (value === _size ? 'on' : 'off')
         )))

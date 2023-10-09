@@ -2,7 +2,6 @@ import {interpretMessage} from "./interpreter/gptInterpreter";
 import {playAudio} from "./hardware/speaker";
 import {analyzeStream} from "./volume-level-analyzer/volumeLevelAnalyzer";
 import {startRestAPI} from "./rest-API/httpServer";
-import {sendStreamData} from "./rest-API/api/apiRouter";
 import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speechToText"; //Use local whisper
 import {processResponse} from "./seat-API/seatCommandMapper";
 
