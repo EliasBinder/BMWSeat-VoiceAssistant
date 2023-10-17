@@ -1,11 +1,11 @@
 import { Endpoint, InEndpoint } from "usb";
-import {fetchMicrophoneInterrupts, stopFetchMicrophoneInterrupts} from "../../src/direction-of-voice/directionOfVoice";
+import {fetchDOV, stopFetchDOV} from "../../src/direction-of-voice/directionOfVoice";
 import {setTimeout} from "timers/promises";
 
 test('log usb interrupts for microphone', async () => {
-    fetchMicrophoneInterrupts();
+    fetchDOV();
     await setTimeout(10000, 'resolved');
-    const result = await stopFetchMicrophoneInterrupts();
+    const result = await stopFetchDOV();
     expect(result).toBeGreaterThan(-1);
     expect(result).toBeLessThan(1);
     console.log(result);

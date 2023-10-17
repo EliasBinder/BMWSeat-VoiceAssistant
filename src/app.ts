@@ -4,25 +4,28 @@ import {analyzeStream} from "./volume-level-analyzer/volumeLevelAnalyzer";
 import {startRestAPI} from "./rest-API/httpServer";
 import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speechToText"; //Use local whisper
 import {processResponse} from "./seat-API/seatCommandMapper";
+import {startAnalyzing} from "./interrupts/interrupts";
+import {fetchDOV, stopFetchDOV} from "./direction-of-voice/directionOfVoice";
 
 //Setup Rest API
 startRestAPI();
 
-//seatController.makeDummyRequest();
+//Setup microphone interrupts
+startAnalyzing();
 
 export const wake = () => {
     analyzeStream(async () => {
         console.log('🎤 System is not listening...');
         const text = await stopTranscriptionMicrophone();
-        //const direction = await stopFetchMicrophoneInterrupts();
+        const direction = await stopFetchDOV();
         console.log('🎤 Transcription: ', text);
         if (text.trim() !== '')
-            interpretCommand(text, 1);
+            interpretCommand(text, direction);
     });
 
     transcribeMicrophone();
     console.log('🚀 System is awake!');
-    //fetchMicrophoneInterrupts();
+    fetchDOV();
 }
 
 const interpretCommand = async (command: string, direction: number) => {
