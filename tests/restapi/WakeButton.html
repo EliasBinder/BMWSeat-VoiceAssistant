@@ -102,13 +102,9 @@
 
     <script>
         function sendWake() {
-            fetch('http://127.0.0.1:3000/api/wake')
+            fetch('http://localhost:3000/api/wake')
                 .then(resp => resp.json()).then(data => {
-                    if (data.hasOwnProperty('status') && data.status === 'ok') {
-                        document.getElementById('img_mic').style.display = 'none';
-                        document.getElementById('btn').style.display = 'none';
-                        document.getElementById('img_speaking').style.display = 'inline-block';
-                    }
+                    alert(JSON.stringify(data));
                 })
         }
     </script>
