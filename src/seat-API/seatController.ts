@@ -28,8 +28,16 @@ export const moveHorizontal = async (seat: 'DS' | 'PS', value: number) => {
     return handleResponse(requestHandler('/seat/move/' + value))
 }
 
+export const moveVertical = async (seat: 'DS' | 'PS', value: number) => {
+    return handleResponse(requestHandler('/seat/height/' + value))
+}
+
 export const moveBackrest = async (seat: 'DS' | 'PS', value: number) => {
     return handleResponse(requestHandler('/seat/recline/' + value))
+}
+
+export const moveIncline = async (seat: 'DS' | 'PS', value: number) => {
+    return handleResponse(requestHandler('/seat/incline/' + value))
 }
 
 export const setSize = async (seat: 'DS' | 'PS', value: 'S' | 'M' | 'L') => {

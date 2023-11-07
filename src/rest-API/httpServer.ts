@@ -7,6 +7,7 @@ const port = 3000;
 export const startRestAPI = () => {
     app.use(express.json());
 
+    app.use('/app', express.static('src/rest-API/webapp'));
     app.use('/api', apiRouter);
 
     app.listen(port, () => {

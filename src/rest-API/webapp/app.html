@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seat Control App</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <script>
+        var IP = 'http://192.168.17.240'
+    </script>
+    <div class="update-div">
+        <div class="update">
+            Action taken by Assistant:
+            <span id="action">None</span>
+            <button>Cancel</button>
+        </div>
+    </div>
+    <span class="descriptor">Seat</span>
+    <div class="buttons">
+        <button onclick="makeRequest('move', 255)">Forward</button>
+        <button onclick="makeRequest('move', -255)">Backwards</button>
+        <button onclick="makeRequest('height', 255)">Up</button>
+        <button onclick="makeRequest('height', -255)">Down</button>
+    </div>
+    <span class="descriptor">Backrest</span>
+    <div class="buttons">
+        <button onclick="makeRequest('recline', 255)">Forward</button>
+        <button onclick="makeRequest('recline', -255)">Backwards</button>
+    </div>
+    <span class="descriptor">Shoulders</span>
+    <div class="buttons">
+        <button onclick="makeRequest('shoulders', 255)">Forward</button>
+        <button onclick="makeRequest('shoulders', -255)">Backwards</button>
+    </div>
+    <script>
+        function makeRequest(endpoint, value) {
+            fetch(IP + '/api/v2/vcom/seat/' + endpoint + '/' + value, {
+                method: 'GET'
+            }).then(() => {
+                console.log('Request sent');
+            })
+        }
+    </script>
+</body>
+</html>

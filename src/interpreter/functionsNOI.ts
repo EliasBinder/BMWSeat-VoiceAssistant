@@ -54,7 +54,7 @@ export default [
         }
     },
     {
-        name: "incline_seat",
+        name: "move_incline",
         description: "Change the inclination of the seating area",
         parameters: {
             type: "object",

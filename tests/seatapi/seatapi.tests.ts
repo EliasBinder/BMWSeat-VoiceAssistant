@@ -1,7 +1,7 @@
-import {moveHorizontal} from "../../src/seat-API/seatController";
+import {moveVertical} from "../../src/seat-API/seatController";
 
 test('Move seat vertical', async () => {
-    await moveHorizontal('DS', -50)
+    await moveVertical('DS', -50)
         .then((response) => {
             console.log('Response: ');
             console.log(JSON.stringify(response));

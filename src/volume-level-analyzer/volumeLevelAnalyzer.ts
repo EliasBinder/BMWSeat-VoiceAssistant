@@ -9,7 +9,7 @@ export const analyzeStream = (onFinish: Function) => {
     let startedSpeaking = false;
 
     addCallback(vlaId, (data: Buffer) => {
-        const isVAD = data[2] === 1; //TODO: check if this is correct
+        const isVAD = data[2] === 1;
 
         console.log('🎤 Is Speaking: ', isVAD);
         console.log('🎤 Started speaking: ', startedSpeaking)

@@ -12,7 +12,7 @@ export async function interpretMessage(userInput: string){
                     "The user may not express his request directly, but instead may express the current circumstances which he is not happy with."},
             {role: "user", content: userInput},
         ],
-        functions: functionsTratter,
+        functions: functionsNOI,
         function_call: "auto"
     });
 
