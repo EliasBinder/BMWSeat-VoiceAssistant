@@ -1,6 +1,7 @@
 import openAI from "../config/openAI";
 import functionsNOI from "./functionsNOI";
 import functionsTratter from "./functionsTratter";
+import {getVoiceFeedback} from "./gptVoiceResponse";
 
 export async function interpretMessage(userInput: string){
     const response = await openAI.openai.createChatCompletion({
@@ -19,6 +20,8 @@ export async function interpretMessage(userInput: string){
 
     const completion = response.data.choices[0].message
 
+    const textResponse = getVoiceFeedback(JSON.stringify(completion.function_call, null, 2))
+
     // return array of response text and function called
-    return [completion.content, completion.function_call]
+    return [textResponse, completion.function_call]
 }
