@@ -20,7 +20,7 @@ export async function interpretMessage(userInput: string){
 
     const completion = response.data.choices[0].message
 
-    const textResponse = getVoiceFeedback(JSON.stringify(completion.function_call, null, 2))
+    const textResponse = await getVoiceFeedback(JSON.stringify(completion.function_call, null, 2))
 
     // return array of response text and function called
     return [textResponse, completion.function_call]
