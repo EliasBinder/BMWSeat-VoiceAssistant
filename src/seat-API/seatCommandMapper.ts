@@ -7,32 +7,36 @@ import {
     moveHorizontal,
     moveIncline
 } from "./seatController";
+import {say} from "../text-to-speech/textToSpeech";
 
 export const processResponse = (gptResponse: any, seat: 'DS' | 'PS') => {
-    if (!gptResponse.name)
+    const getMessages = gptResponse[0];
+    const gptFunctionCall = gptResponse[1];
+    if (!gptFunctionCall.name)
         return;
-    gptResponse.arguments = JSON.parse(gptResponse.arguments);
-    switch (gptResponse.name) {
+    gptFunctionCall.arguments = JSON.parse(gptFunctionCall.arguments);
+    switch (gptFunctionCall.name) {
         case 'move_seat_horizontal':
-            moveHorizontal(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
+            moveHorizontal(seat, mapValues(gptFunctionCall.arguments.distance) * (gptFunctionCall.arguments.direction ? 1 : -1));
+            say(getMessages);
             break;
         case 'move_seat_vertical':
-            moveVertical(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
+            moveVertical(seat, mapValues(gptFunctionCall.arguments.distance) * (gptFunctionCall.arguments.direction ? 1 : -1));
             break;
         case 'move_backrest':
-            moveBackrest(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
+            moveBackrest(seat, mapValues(gptFunctionCall.arguments.distance) * (gptFunctionCall.arguments.direction ? 1 : -1));
             break;
         case 'move_incline':
-            moveIncline(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
+            moveIncline(seat, mapValues(gptFunctionCall.arguments.distance) * (gptFunctionCall.arguments.direction ? 1 : -1));
             break;
         case 'move_shoulder':
-            moveShoulder(seat, mapValues(gptResponse.arguments.distance) * (gptResponse.arguments.direction ? 1 : -1));
+            moveShoulder(seat, mapValues(gptFunctionCall.arguments.distance) * (gptFunctionCall.arguments.direction ? 1 : -1));
             break;
         case 'set_size':
-            setSize(seat, gptResponse.arguments.size);
+            setSize(seat, gptFunctionCall.arguments.size);
             break;
         case 'enable_mode':
-            enableMode(gptResponse.arguments.mode);
+            enableMode(gptFunctionCall.arguments.mode);
             break;
         default:
             console.error("Undefined action!");
