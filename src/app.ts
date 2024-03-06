@@ -1,40 +1,42 @@
-import {interpretMessage} from "./interpreter/gptInterpreter";
-import {playAudio} from "./hardware/speaker";
-import {analyzeStream} from "./volume-level-analyzer/volumeLevelAnalyzer";
-import {startRestAPI} from "./rest-API/httpServer";
-import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speechToText"; //Use local whisper
-import {processResponse} from "./seat-API/seatCommandMapper";
-import {startAnalyzing} from "./interrupts/interrupts";
-import {fetchDOV, stopFetchDOV} from "./direction-of-voice/directionOfVoice";
+import { interpretMessage } from "./interpreter/gptInterpreter";
+import { playAudio } from "./hardware/speaker";
+import { analyzeStream } from "./volume-level-analyzer/volumeLevelAnalyzer";
+import { startRestAPI } from "./rest-API/httpServer";
+import {
+  stopTranscriptionMicrophone,
+  transcribeMicrophone,
+} from "./speech-to-text/speechToText"; //Use local whisper
+import { processResponse } from "./seat-API/seatCommandMapper";
+import { startAnalyzing } from "./interrupts/interrupts";
+//import { fetchDOV, stopFetchDOV } from "./direction-of-voice/directionOfVoice";
 
 //Setup Rest API
 startRestAPI();
 
 //Setup microphone interrupts
-startAnalyzing();
+//startAnalyzing();
 
 export const wake = () => {
-    analyzeStream(async () => {
-        console.log('🎤 System is not listening...');
-        const text = await stopTranscriptionMicrophone();
-        const direction = await stopFetchDOV();
-        console.log('🎤 Transcription: ', text);
-        if (text.trim() !== '')
-            interpretCommand(text, direction);
-    });
+  analyzeStream(async () => {
+    console.log("🎤 System is not listening...");
+    const text = await stopTranscriptionMicrophone();
+    const direction = 1; // await stopFetchDOV();
+    console.log("🎤 Transcription: ", text);
+    if (text.trim() !== "") interpretCommand(text, direction);
+  });
 
-    transcribeMicrophone();
-    console.log('🚀 System is awake!');
-    fetchDOV();
-}
+  transcribeMicrophone();
+  console.log("🚀 System is awake!");
+  // fetchDOV();
+};
 
 const interpretCommand = async (command: string, direction: number) => {
-    try {
-        const gptResponse = await interpretMessage(command);
-        console.log('✅ GPT Response: ', JSON.stringify(gptResponse));
-        processResponse(gptResponse, direction >= 0 ? 'DS' : 'PS');
-    } catch (e) {
-        playAudio('error.mp3');
-        console.log('❌ GPT Response JSON: ', e);
-    }
-}
+  try {
+    const gptResponse = await interpretMessage(command);
+    console.log("✅ GPT Response: ", JSON.stringify(gptResponse));
+    processResponse(gptResponse, direction >= 0 ? "DS" : "PS");
+  } catch (e) {
+    playAudio("error.mp3");
+    console.log("❌ GPT Response JSON: ", e);
+  }
+};

@@ -47,7 +47,7 @@ export default [
                 },
                 distance: {
                     type: "string",
-                    description: "The distance the move the shoulder part forward or backward. Use one of the following valued: 'low', 'medium' or 'high'."
+                    description: "The distance the move the shoulder part forward or backward. Use one of the following values: 'low', 'medium' or 'high'."
                 }
             },
             required: ["direction", "distance"]

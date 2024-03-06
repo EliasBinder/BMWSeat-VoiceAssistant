@@ -1,44 +1,43 @@
-import { Configuration, OpenAIApi } from "openai";
-import config from "../../config.json";
 import openAI from "../config/openAI";
-import fs, {ReadStream} from 'fs';
-import {Readable} from "stream";
-import {recordMicrophoneStream, stopMicrophoneStream} from "../hardware/microphone";
+import fs from "fs";
+import {
+  recordMicrophoneStream,
+  stopMicrophoneStream,
+} from "../hardware/microphone";
 
 let stopTranscription = (): Promise<string> => {
-    return new Promise((resolve, reject) => {
-        resolve('')
-    })
-}
+  return new Promise((resolve, reject) => {
+    resolve("");
+  });
+};
 
-export function transcribeMicrophone(){
-    //Create a file from the stream
-    recordMicrophoneStream('transcription');
+export function transcribeMicrophone() {
+  //Create a file from the stream
+  recordMicrophoneStream("transcription");
 
-    stopTranscription = async () => {
-        stopMicrophoneStream('transcription');
-        let resp = {data: {text: ''}};
+  stopTranscription = async () => {
+    stopMicrophoneStream("transcription");
+    let resp: { text: string } = { text: "" };
 
-        try {
-            resp = await openAI.openai.createTranscription(
-                fs.createReadStream('resources/transcription.wav'),
-                "whisper-1"
-            );
-        }catch (e){
-            console.error('whisper error: ' + e)
-        }
-
-        return resp.data.text;
-    };
-
-}
-
-export async function stopTranscriptionMicrophone(){
-    const result = await stopTranscription();
-    stopTranscription = (): Promise<string> => {
-        return new Promise((resolve, reject) => {
-            resolve('')
-        })
+    try {
+      resp = await openAI.audio.transcriptions.create({
+        file: fs.createReadStream("resources/transcription.wav"),
+        model: "whisper-1",
+      });
+    } catch (e) {
+      console.error("whisper error: " + e);
     }
-    return result;
+
+    return resp.text;
+  };
+}
+
+export async function stopTranscriptionMicrophone() {
+  const result = await stopTranscription();
+  stopTranscription = (): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      resolve("");
+    });
+  };
+  return result;
 }

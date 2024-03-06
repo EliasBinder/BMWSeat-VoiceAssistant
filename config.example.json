@@ -3,5 +3,6 @@
   "volumeThreshold": 100,
   "Seat_API_Endpoint": "127.0.0.1/",
   "OpenAI_API_Key": "",
-  "Seat_API_Authorization": ""
+  "Seat_API_Authorization": "",
+  "Use_Voice_Feedback": true
 }
