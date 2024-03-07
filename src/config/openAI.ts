@@ -3,5 +3,5 @@ import OpenAI from "openai";
 import config from "../../config.json";
 
 export default new OpenAI({
-  apiKey: config.OpenAI_API_Key,
+  apiKey: config.OpenAI_API_Key
 });

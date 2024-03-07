@@ -1,10 +1,5 @@
-import Player from 'play-sound';
-const player = Player();
-
-export let currentAudio: any = null;
+const { spawn } = require('child_process');
 
 export const playAudio = (audioFileName: string) => {
-    if (currentAudio)
-        currentAudio.kill();
-    currentAudio = player.play('resources/' + audioFileName);
+    spawn('bash', ['resources/child-processes/speaker.sh', audioFileName])
 }

@@ -7,7 +7,7 @@ import {
   moveHorizontal,
   moveIncline,
 } from "./seatController";
-import { say } from "../text-to-speech-local/textToSpeech";
+import { say } from "../text-to-speech/textToSpeech";
 
 export const processResponse = (gptResponse: any, seat: "DS" | "PS") => {
   const getMessages = gptResponse[0];

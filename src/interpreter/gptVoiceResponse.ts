@@ -1,5 +1,5 @@
 import openAI from "../config/openAI";
-import functionsNOI from "./functionsNOI";
+// import functionsNOI from "./functionsNOI";
 
 export const getVoiceFeedback = async (toExecute: string) => {
   const response = await openAI.chat.completions.create({
@@ -9,7 +9,8 @@ export const getVoiceFeedback = async (toExecute: string) => {
         role: "system",
         content:
           "You are a helpful voice assistant that can move a car seat." +
-          "For every message from the user, formulate a response using the data from the function call. That response will be played using the speakers inside the car.",
+          "You will receive a description of the action that is performed with the seat." +
+          "Formulate a response using that data. That response will be played using the speakers inside the car.",
       },
       { role: "user", content: toExecute },
     ],
