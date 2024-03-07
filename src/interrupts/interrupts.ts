@@ -20,6 +20,8 @@ export const startAnalyzing = () => {
     let deviceInterface: Interface | null = null;
     let isKernelDriverActive = false;
 
+    console.log("Analyzing...");
+
     if(device) {
         console.log('Microphone found');
         device.open();
