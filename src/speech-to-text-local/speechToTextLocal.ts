@@ -18,7 +18,7 @@ export function transcribeMicrophone(){
             resp = await fetch('http://127.0.0.1:3001')
                 .then(res => res.text())
         }catch (e){
-            console.error('whisper error: ' + e)
+            console.error('whisper error local: ' + e)
         }
 
         return resp;
