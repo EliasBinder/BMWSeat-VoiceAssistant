@@ -12,7 +12,7 @@ export const analyzeStream = (onFinish: Function) => {
         const isVAD = data[2] === 1;
 
         console.log('🎤 Is Speaking: ', isVAD);
-        console.log('🎤 Started speaking: ', startedSpeaking)
+        console.log('🎤 Started speaking: ', startedSpeaking);
 
         if (isVAD) {
             startedSpeaking = true;

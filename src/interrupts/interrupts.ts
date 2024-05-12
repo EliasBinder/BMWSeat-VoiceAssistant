@@ -63,6 +63,6 @@ export const startAnalyzing = () => {
             console.log('The specified endpoint is not an interrupt endpoint.');
         }
     } else {
-        console.log('Device not found');
+        console.log('Microphone not found');
     }
 }

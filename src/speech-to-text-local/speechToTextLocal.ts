@@ -1,5 +1,3 @@
-import fs, {ReadStream} from 'fs';
-import {Readable} from "stream";
 import {recordMicrophoneStream, stopMicrophoneStream} from "../hardware/microphone";
 
 let stopTranscription = (): Promise<string> => {
