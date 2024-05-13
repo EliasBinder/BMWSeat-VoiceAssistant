@@ -14,13 +14,13 @@ import { intercept } from "./interceptor/interceptor";
 startRestAPI();
 
 //Setup microphone interrupts
-//startAnalyzing();
+startAnalyzing();
 
 export const wake = () => {
   analyzeStream(async () => {
     console.log("🎤 System is not listening...");
     const text = await stopTranscriptionMicrophone();
-    const direction = 1 // await stopFetchDOV();
+    const direction = await stopFetchDOV();
     console.log("🎤 Transcription: ", text);
     if (text.trim() !== "") {
       if (!intercept(text, direction))
@@ -30,7 +30,7 @@ export const wake = () => {
 
   transcribeMicrophone();
   console.log("🚀 System is awake!");
-  //fetchDOV();
+  fetchDOV();
 };
 
 const interpretCommand = async (command: string, direction: number) => {
