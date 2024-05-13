@@ -8,7 +8,7 @@ export const say = async (text: string) => {
         const response = await openAI.audio.speech.create({
             model: "tts-1",
             voice: "alloy",
-            input: text
+            input: text,
         });
         const buffer = Buffer.from(await response.arrayBuffer());
         await fs.promises.writeFile("resources/say.mp3", buffer);

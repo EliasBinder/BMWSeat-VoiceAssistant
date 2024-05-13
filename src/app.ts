@@ -8,10 +8,7 @@ import {
 import { processResponse } from "./seat-API/seatCommandMapper";
 import { startAnalyzing } from "./interrupts/interrupts";
 import { fetchDOV, stopFetchDOV } from "./direction-of-voice/directionOfVoice";
-<<<<<<< HEAD
 import { intercept } from "./interceptor/interceptor";
-=======
->>>>>>> 8a61c2ac55a37d1ced0f0c7bcfe87f957cf61c9e
 
 //Setup Rest API
 startRestAPI();
