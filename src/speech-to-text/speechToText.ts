@@ -23,7 +23,7 @@ export function transcribeMicrophone() {
       resp = await openAI.audio.transcriptions.create({
         file: fs.createReadStream("resources/transcription.wav"),
         model: "whisper-1",
-        prompt: "Transcribe the following audio. The user may not say a complete sentence. The sentence may include the words 'hyper' at the beginning to trigger custom behaviour. Transcribe numbers as digits."
+        prompt: "Transcribe the following audio. In special cases, the user may use a special structure, like 'hyper sitz bewegen 1 zentimeter vorwärts'"
       });
     } catch (e) {
       console.error("whisper error: " + e);
