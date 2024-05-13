@@ -8,10 +8,11 @@ export const intercept = (msg: String, direction: number): boolean => {
             triggerword: command[0].toLowerCase(),
             domain: command[1].toLowerCase(),
             commandname: command[2].toLowerCase(),
-            unit: parseUnit(command[3].toLowerCase()),
-            direction: command[4].toLowerCase(),
+            value: command[3].toLowerCase(),
+            unit: parseUnit(command[4].toLowerCase()),
+            direction: command[5].toLowerCase(),
             raw: msg,
-            // origin: direction,
+            origin: direction == 0 ? "driver" : "passenger",
             status_indicator: 200
         }
 
