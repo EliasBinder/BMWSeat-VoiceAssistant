@@ -16,17 +16,21 @@ export const intercept = (msg: String, direction: number): boolean => {
             status_indicator: 200
         }
 
-        fetch (config.Hyper_Endpoint, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(constructedJson)
-        }).then(res => {
-            console.log("Response: ", res);
-        }).catch(err => {
-            console.log("Error: ", err);
-        });
+        try {
+            fetch (config.Hyper_Endpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(constructedJson)
+            }).then(res => {
+                console.log("Response: ", res);
+            }).catch(err => {
+                console.log("Error: ", err);
+            });
+        } catch (e) {
+            console.log("Error: ", e);
+        }
 
 
         return true;
