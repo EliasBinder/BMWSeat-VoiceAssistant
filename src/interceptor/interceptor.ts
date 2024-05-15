@@ -16,6 +16,8 @@ export const intercept = (msg: String, direction: number): boolean => {
             status_indicator: 200
         }
 
+        //process exclamation marks before sending json 
+
         try {
             fetch (config.Hyper_Endpoint, {
                 method: "POST",
@@ -43,7 +45,7 @@ const parseUnit = (unit: string): string => {
         case "zentimeter":
             return "cm";
         case "grad":
-            return "°";
+            return "angle";
         case "prozent":
             return "%";
         case "meter":

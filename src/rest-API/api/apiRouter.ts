@@ -2,6 +2,7 @@ import express from 'express';
 import {wake} from "../../app";
 import { say } from '../../text-to-speech/textToSpeech';
 const router = express.Router();
+console.log(router);
 
 router.get('/', (req, res) => {
     res.send('Hello World!');
@@ -19,6 +20,7 @@ router.post('/say', (req, res) => {
         res.status(400).send({error: "text is required"});
     }
     const text = bodyJson.text;
+    console.log(text);
     say(text);
     res.send({status: 'ok'});
 })

@@ -20,7 +20,7 @@ export const wake = () => {
   analyzeStream(async () => {
     console.log("🎤 System is not listening...");
     const text = await stopTranscriptionMicrophone();
-    const direction = await stopFetchDOV();
+    const direction = await stopFetchDOV();//direion of voic4e
     console.log("🎤 Transcription: ", text);
     if (text.trim() !== "") {
       if (!intercept(text, direction))

@@ -1,17 +1,31 @@
-import {analyzeStream} from "./volume-level-analyzer/volumeLevelAnalyzer";
-import {stopTranscriptionMicrophone, transcribeMicrophone} from "./speech-to-text/speechToText";
+import config from "./../config.json"
 
-//Test 2 simultaneous mic stream usages
+const constructedJson = {
+    triggerword: "hyper",
+    domain: "sitz",
+    commandname: "bewegen",
+    value: 8,
+    unit: "cm",
+    direction: "vorwärts",
+    raw: "hyper sitz bewegen 8 zentimeter vorwärts",
+    origin: "hyper",
+    status_indicator: 200
+}
 
-analyzeStream(() => {
-    console.log('stopped speaking......');
-})
-
-transcribeMicrophone();
-console.log('running');
-
-setTimeout(() => {
-    stopTranscriptionMicrophone().then(r =>
-        console.log('Transcription: ', r)
-    );
-}, 5000)
+try {
+    fetch (config.Hyper_Endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(constructedJson)
+    }).then(res => {
+        return res.text()
+    }).then(res => {
+        console.log(res);
+    }).catch(err => {
+        console.log("Error: ", err);
+    });
+} catch (e) {
+    console.log("Error: ", e);
+}
