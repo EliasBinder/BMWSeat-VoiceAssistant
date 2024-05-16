@@ -26,6 +26,10 @@ export async function interpretMessage(userInput: string) {
 
   //Reformat data for better GPT audio response
 
+  if (!completion.function_call) {
+    return [undefined, undefined];
+  }
+
   const voiceOutputInstructions = {
     ...completion.function_call
   }
