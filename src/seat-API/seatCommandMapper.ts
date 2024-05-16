@@ -16,11 +16,11 @@ export const processResponse = (gptResponse: any, seat: "DS" | "PS") => {
   gptFunctionCall.arguments = JSON.parse(gptFunctionCall.arguments);
   switch (gptFunctionCall.name) {
     case "move_seat_horizontal":
-      //moveHorizontal(
-      //  seat,
-      //  mapValues(gptFunctionCall.arguments.distance) *
-      //    (gptFunctionCall.arguments.direction ? 1 : -1),
-      //);
+      moveHorizontal(
+        seat,
+        mapValues(gptFunctionCall.arguments.distance) *
+          (gptFunctionCall.arguments.direction ? 1 : -1),
+      );
       say(getMessages);
       break;
     case "move_seat_vertical":

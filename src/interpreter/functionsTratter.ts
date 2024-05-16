@@ -36,6 +36,9 @@ export default [
         }
     },
     {
+        name: ""
+    },
+    {
         name: "move_shoulder",
         description: "Move the shoulder part of the car seat forward or backward",
         parameters: {
@@ -69,13 +72,13 @@ export default [
     },
     {
         name: "enable_mode",
-        description: "Enables a mode. Modes are: Parking, Exit, Entry and Comfort. The Entry and Exit mode allow the user to get in and out of their seat more easily",
+        description: "Enables a mode. Modes are: Parking, ExitOrEntry and Comfort. The EntryOrExit mode allows the user to get in and out of their seat more easily",
         parameters: {
             type: "object",
             properties: {
                 mode: {
                     type: "string",
-                    description: "The mode to enable. Must be 'Parking', 'Exit', 'Entry' or 'Comfort'",
+                    description: "The mode to enable. Must be 'Parking', 'ExitOrEntry' or 'Comfort'",
                 }
             },
             required: ["mode"],

@@ -3,11 +3,10 @@ export const enableMode = async (mode: string) => {
     //or if we have to handle it => get mode settings from config.json
     const modes = {
         Parking: 'IN08-PARKMODE',
-        Exit: 'IN09-EASYINOUT',
-        Entry: 'IN09-EASYINOUT',
+        EntryOrExit: 'IN09-EASYINOUT',
         Comfort: 'IN10-COMFORTMODE'
     }
-    type modeType = 'Parking' | 'Exit' | 'Entry' | 'Comfort'
+    type modeType = 'Parking' | 'EntryOrExit' | 'Comfort'
     let endpoint = '';
     if (Object.keys(modes).includes(mode))
         endpoint = modes[mode as modeType]
