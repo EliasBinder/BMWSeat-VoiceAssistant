@@ -27,33 +27,33 @@ const config = require("../../config.json");
     }
   };
 
-  const commandDictionary = {
+   const commandDictionary = {
     de: {
       "hyper": "hyper",
-      "sitz": "sitz",
-      "bewegen": "bewegen",
-      "vorwärts": "vorwärts",
-      "rückwärts": "rückwärts",
-      "zentimeter": "zentimeter"
+      "sitz": "seat",
+      "bewegen": "move",
+      "vorwärts": "forward",
+      "rückwärts": "backward",
+      "zentimeter": "centimeters"
     },
     it: {
       "hyper": "hyper",
-      "sedile": "sedile",
-      "muovere": "muovere",
-      "avanti": "avanti",
-      "indietro": "indietro",
-      "centimetri": "centimetri"
+      "sedile": "seat",
+      "muovere": "move",
+      "avanti": "forward",
+      "indietro": "backward",
+      "centimetri": "centimeters"
     },
     fr: {
       "hyper": "hyper",
-      "siège": "siège",
-      "déplacer": "déplacer",
-      "avant": "avant",
-      "arrière": "arrière",
-      "centimètres": "centimètres"
+      "siège": "seat",
+      "déplacer": "move",
+      "avant": "forward",
+      "arrière": "backward",
+      "centimètres": "centimeters"
     }
   };
-
+  
   const languageMapping = {
     deu: 'de',
     ita: 'it',
