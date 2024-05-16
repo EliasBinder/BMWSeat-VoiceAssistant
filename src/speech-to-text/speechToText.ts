@@ -24,7 +24,7 @@ export function transcribeMicrophone() {
         file: fs.createReadStream("resources/transcription.wav"),
         model: "whisper-1",
         //prompt: "Transcribe the following audio. In special cases, the user may use a specific structure, like 'hyper sitz sitz bewegen 1 zentimeter vorwärts' or 'hyper seat move 1 centimeter forward'", 
-        //prompt: "Possible words used in the audio: hyper, seat, move, forward, centimeter",
+        prompt: "The audio contains instructions on how to move a car seat. It may not be formulated in a full sentence. The user may use a specific structure, like 'hyper seat move 1 centimeter forward' or 'hyper sitz bewegen 1 zentimeter vorwärts'.",
       });
       
       resp.text = resp.text.replace(/!/g, '');
