@@ -14,7 +14,7 @@ export async function interpretMessage(userInput: string) {
           "You can move the seat forward, adjust the shoulders, adjust the size to the seat of the user for S, M and L, and adjust the backrest." +
           "You can also select a predefined mode for the seat. The predefined modes are Parking, Comfort and Exit and Entry to make it easier to get in and out of the car." +
           "The user may not express his request directly, but instead may express the current circumstances which he is not happy with." +
-          "Give a proper response to the user and then call the appropriate function. Never ask the user for clarification to meet all the requirements of a function since the user cannot respond.",
+          "Never ask the user for clarification.",
       },
       { role: "user", content: userInput },
     ],
