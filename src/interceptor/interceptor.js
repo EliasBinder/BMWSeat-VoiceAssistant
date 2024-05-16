@@ -1,11 +1,31 @@
-
-
-
-const config = require("../../config.json");
 const fetch = require('node-fetch');
+const config = require("../../config.json");
 
 (async () => {
   const { franc } = await import('franc');
+
+  // Fetch the configuration from the given endpoint
+  const fetchConfig = async () => {
+    try {
+      const response = await fetch(config.Hyper_Endpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching config: ${response.statusText}`);
+      }
+
+      const configData = await response.json();
+      console.log("Fetched config: ", configData);
+      return configData;
+    } catch (error) {
+      console.error("Error fetching config: ", error);
+      throw error;
+    }
+  };
 
   const commandDictionary = {
     de: {
@@ -74,7 +94,7 @@ const fetch = require('node-fetch');
   };
 
   const intercept = async (msg, direction) => {
-    const translateRaw = true; 
+    const translateRaw = true;
 
     if (msg.toLowerCase().startsWith("hyper")) {
       console.log("Intercepted: ", msg);
@@ -101,8 +121,9 @@ const fetch = require('node-fetch');
       console.log("Constructed JSON: ", JSON.stringify(constructedJson, null, 2));
 
       try {
-        console.log("Sending request to:", 'http://10.30.51.150:8888/api/v5/hyper/commands');
-        const response = await fetch('http://10.30.51.150:8888/api/v5/hyper/commands', {
+        const configData = await fetchConfig();
+        console.log("Sending request to:", configData.Hyper_Endpoint);
+        const response = await fetch(configData.Hyper_Endpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -131,4 +152,3 @@ const fetch = require('node-fetch');
   const exampleText = "Hyper sitz bewegen 1 Zentimeter vorwärts.";
   intercept(exampleText, 0);
 })();
-
