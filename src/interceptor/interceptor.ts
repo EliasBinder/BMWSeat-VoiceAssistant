@@ -10,6 +10,11 @@ export const intercept = (msg: string, direction: number): boolean => {
     if (msg.toLowerCase().startsWith("hyper")){
         console.log("Intercepted: ", msg);
 
+        //Ugly fix for german language
+        if (msg.toLowerCase().startsWith("hypersitz")) {
+            msg = msg.toLocaleLowerCase().replace("hypersitz", "hyper sitz");
+        }
+
         let lang = getLanguage(msg);
         console.log("Language: ", lang);
 
