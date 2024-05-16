@@ -1,3 +1,5 @@
+import { calculateSimilarity } from "./similarity";
+
 const commandDictionary = {
     de: {
         triggerword: ["hyper"],
@@ -22,14 +24,20 @@ const commandDictionary = {
     }
 } as any;
 
-export const getTranslation = (key: string): string => {
-    for (let lang in commandDictionary){
-        for (let section in commandDictionary[lang]){
-            if (commandDictionary[lang][section].includes(key)){
-                const index = commandDictionary[lang][section].indexOf(key);
-                return commandDictionary.en[section][index];
+export const getTranslation = (key: string, language: string, section: string): string => {
+    if (commandDictionary[language][section].includes(key)){
+        const index = commandDictionary[language][section].indexOf(key);
+        return commandDictionary.en[section][index];
+    } else {
+        let mostLikely = key;
+        let mostLikelyPercentage = 0;
+        commandDictionary[language][section].forEach((element: string) => {
+            let similarity = calculateSimilarity(element, key);
+            if (similarity > mostLikelyPercentage) {
+                mostLikelyPercentage = similarity;
+                mostLikely = element;
             }
-        }
+        });
+        return mostLikely;
     }
-    return key;
 }

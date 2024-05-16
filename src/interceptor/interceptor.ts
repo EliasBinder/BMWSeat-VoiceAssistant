@@ -14,11 +14,19 @@ export const intercept = (msg: string, language: string, direction: number): boo
             language = "en";
 
         //Ugly fix for german language
-        if (msg.toLowerCase().startsWith("hypersitz")) {
-            msg = msg.toLocaleLowerCase().replace("hypersitz", "hyper sitz");
-        }
+        //if (msg.toLowerCase().startsWith("hypersitz")) {
+        //    msg = msg.toLocaleLowerCase().replace("hypersitz", "hyper sitz");
+        //}
 
         const command = msg.split(" ");
+
+        // Better fix for german language
+        if (!(command[0].toLocaleLowerCase() == "hyper")) {
+            const postfix = command[0].toLocaleLowerCase().replace("hyper", "");
+            command[0] = "hyper";
+            command.splice(1, 0, postfix);
+        }
+
         console.log("Command: ", command);
 
         if (command.length != 6) {
@@ -29,12 +37,12 @@ export const intercept = (msg: string, language: string, direction: number): boo
         }
 
         const constructedJson = {
-            triggerword: getTranslation(command[0].toLowerCase()),
-            domain: getTranslation(command[1].toLowerCase()),
-            commandname: getTranslation(command[2].toLowerCase()),
-            value: getTranslation(command[3].toLowerCase()),
-            unit: getTranslation(parseUnit(command[4].toLowerCase())),
-            direction: getTranslation(command[5].toLowerCase()),
+            triggerword: getTranslation(command[0].toLowerCase(), language, "triggerword"),
+            domain: getTranslation(command[1].toLowerCase(), language, "domain"),
+            commandname: getTranslation(command[2].toLowerCase(), language, "commandname"),
+            value: command[3],
+            unit: parseUnit(getTranslation(command[4].toLowerCase(), language, "unit")),
+            direction: getTranslation(command[5].toLowerCase(), language, "direction"),
             raw: msg,
             origin: direction == 0 ? "driver" : "passenger",
             //originallanguage: language, //TODO: clearify
@@ -67,11 +75,11 @@ export const intercept = (msg: string, language: string, direction: number): boo
 
 const parseUnit = (unit: string): string => {
     switch (unit) {
-        case "zentimeter":
+        case "centimeter":
             return "cm";
-        case "grad":
+        case "degree":
             return "angle";
-        case "prozent":
+        case "percent":
             return "%";
         case "meter":
             return "m";
