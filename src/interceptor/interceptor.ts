@@ -117,10 +117,10 @@ export const intercept = async (msg: string, direction: number): Promise<boolean
   }
 };
 
-const exampleText = "Hyper sitz bewegen 1 Zentimeter vorwärts.";
-intercept(exampleText, 0).then((result) => {
-  console.log("Intercept result: ", result);
-});
+// const exampleText = "Hyper sitz bewegen 1 Zentimeter vorwärts.";
+// intercept(exampleText, 0).then((result) => {
+//   console.log("Intercept result: ", result);
+// });
 
 // import config from "../../config.json";
 // export const intercept = (msg: String, direction: number): boolean => {
