@@ -1,4 +1,4 @@
-const config = require("../../config.json");
+const config = require("./config.json");
 const fetch = require('node-fetch');
 
 (async () => {
@@ -7,27 +7,27 @@ const fetch = require('node-fetch');
   const commandDictionary = {
     de: {
       "hyper": "hyper",
-      "sitz": "seat",
-      "bewegen": "move",
-      "vorwärts": "forward",
-      "rückwärts": "backward",
-      "zentimeter": "centimeters"
+      "sitz": "sitz",
+      "bewegen": "bewegen",
+      "vorwärts": "vorwärts",
+      "rückwärts": "rückwärts",
+      "zentimeter": "zentimeter"
     },
     it: {
       "hyper": "hyper",
-      "sedile": "seat",
-      "muovere": "move",
-      "avanti": "forward",
-      "indietro": "backward",
-      "centimetri": "centimeters"
+      "sedile": "sedile",
+      "muovere": "muovere",
+      "avanti": "avanti",
+      "indietro": "indietro",
+      "centimetri": "centimetri"
     },
     fr: {
       "hyper": "hyper",
-      "siège": "seat",
-      "déplacer": "move",
-      "avant": "forward",
-      "arrière": "backward",
-      "centimètres": "centimeters"
+      "siège": "siège",
+      "déplacer": "déplacer",
+      "avant": "avant",
+      "arrière": "arrière",
+      "centimètres": "centimètres"
     }
   };
 
@@ -62,13 +62,6 @@ const fetch = require('node-fetch');
     }
   };
 
-  const translateCommand = (command, lang) => {
-    if (commandDictionary[lang]) {
-      return command.map(word => commandDictionary[lang][word.toLowerCase().replace(/[.,]/g, '')] || word);
-    }
-    return command;
-  };
-
   const getErrorMessage = (text) => {
     const lang = franc(text);
     const mappedLang = languageMapping[lang] || 'en';
@@ -87,7 +80,7 @@ const fetch = require('node-fetch');
       const mappedLang = languageMapping[lang] || 'en';
       console.log("Detected language: ", lang);
       console.log("Mapped language: ", mappedLang);
-      const translatedCommand = translateCommand(command, mappedLang);
+      const translatedCommand = command.map(word => commandDictionary[mappedLang][word.toLowerCase().replace(/[.,]/g, '')] || word);
 
       const constructedJson = {
         triggerword: translatedCommand[0].toLowerCase(),
@@ -104,9 +97,8 @@ const fetch = require('node-fetch');
       console.log("Constructed JSON: ", JSON.stringify(constructedJson, null, 2));
 
       try {
-
-        console.log("Sending request to:", 'http://10.30.51.150:8888/api/v5/hyper/commands');
-        const response = await fetch('http://10.30.51.150:8888/api/v5/hyper/commands', {
+        console.log("Sending request to:", 'XX');
+        const response = await fetch('XX', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
