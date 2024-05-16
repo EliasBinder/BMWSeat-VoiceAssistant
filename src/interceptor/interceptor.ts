@@ -1,6 +1,4 @@
-
 import config from "../../config.json";
-import { franc } from 'franc';
 
 interface CommandDictionaryEntry {
   [key: string]: string | undefined;  
@@ -75,7 +73,8 @@ const translateCommand = (command: string[], lang: string): string[] => {
   return command;
 };
 
-const getErrorMessage = (text: string): string => {
+const getErrorMessage = async (text: string): Promise<string> => {
+  const { franc } = await import('franc');
   const lang = franc(text);
   const mappedLang = languageMapping[lang] || 'en';
   console.log("Detected language for error message: ", lang);
@@ -83,12 +82,13 @@ const getErrorMessage = (text: string): string => {
   return errorMessages[mappedLang] || errorMessages['en'];
 };
 
-export const intercept = (msg: string, direction: number): boolean => {
+export const intercept = async (msg: string, direction: number): Promise<boolean> => {
   const translateRaw = true; 
 
   if (msg.toLowerCase().startsWith("hyper")) {
     console.log("Intercepted: ", msg);
     const command = msg.split(" ");
+    const { franc } = await import('franc');
     const lang = franc(msg);
     const mappedLang = languageMapping[lang] || 'en';
     console.log("Detected language: ", lang);
@@ -111,15 +111,16 @@ export const intercept = (msg: string, direction: number): boolean => {
 
     return true;
   } else {
-    const errorMessage = getErrorMessage(msg);
+    const errorMessage = await getErrorMessage(msg);
     console.log(`Error: ${errorMessage}`);
     return false;
   }
 };
-//e.g
-const exampleText = "Hyper sitz bewegen 1 Zentimeter vorwärts.";
-intercept(exampleText, 0);
 
+const exampleText = "Hyper sitz bewegen 1 Zentimeter vorwärts.";
+intercept(exampleText, 0).then((result) => {
+  console.log("Intercept result: ", result);
+});
 
 // import config from "../../config.json";
 // export const intercept = (msg: String, direction: number): boolean => {
