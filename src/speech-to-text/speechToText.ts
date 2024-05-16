@@ -24,12 +24,13 @@ export function transcribeMicrophone() {
         file: fs.createReadStream("resources/transcription.wav"),
         model: "whisper-1",
         prompt: "Transcribe the following audio. In special cases, the user may use a special structure, like 'hyper sitz bewegen 1 zentimeter vorwärts'" 
-        // remove !
+       
       });
+      
+      resp.text = resp.text.replace(/!/g, '');
     } catch (e) {
       console.error("whisper error: " + e);
     }
-
     return resp.text;
   };
 }
