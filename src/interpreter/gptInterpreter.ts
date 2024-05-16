@@ -19,7 +19,7 @@ export async function interpretMessage(userInput: string) {
       { role: "user", content: userInput },
     ],
     functions: functionsTratter,
-    function_call: "auto",
+    tool_choice: "required"
   });
 
   const completion = response.choices[0].message;
