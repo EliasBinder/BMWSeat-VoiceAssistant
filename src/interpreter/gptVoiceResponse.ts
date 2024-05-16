@@ -3,7 +3,7 @@ import openAI from "../config/openAI";
 
 export const getVoiceFeedback = async (toExecute: string) => {
   const response = await openAI.chat.completions.create({
-    model: "gpt-3.5-turbo-0613",
+    model: "gpt-4",
     messages: [
       {
         role: "system",
