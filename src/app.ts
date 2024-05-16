@@ -25,7 +25,7 @@ export const wake = () => {
     console.log("🎤 Transcription: ", text);
     if (text.trim() !== "") {
       if (!intercept(text, language, direction))
-        interpretCommand(text, direction);
+        interpretCommand(text, language, direction);
     }
   });
 
@@ -34,16 +34,22 @@ export const wake = () => {
   fetchDOV();
 };
 
-const interpretCommand = async (command: string, direction: number) => {
+const interpretCommand = async (command: string, language: string, direction: number) => {
   try {
     const gptResponse = await interpretMessage(command);
     console.log("✅ GPT Response: ", JSON.stringify(gptResponse));
     if (!gptResponse[1]) {
-      say("I'm sorry, I didn't understand that.");
+      if (language === "de") {
+        say("Ich habe den Befehl nicht verstanden.");
+      } else if (language === "it") {
+        say("Non ho capito il comando.");
+      } else {
+        say("I did not understand the command.");
+      }
     }
     processResponse(gptResponse, direction >= 0 ? "DS" : "PS");
   } catch (e) {
-    //playAudio("error.mp3");
+    say("I failed to process the command. Please try again.");
     console.log("❌ GPT Response JSON: ", e);
   }
 };

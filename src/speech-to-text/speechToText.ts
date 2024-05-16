@@ -23,7 +23,7 @@ export function transcribeMicrophone() {
       resp = await openAI.audio.transcriptions.create({
         file: fs.createReadStream("resources/transcription.wav"),
         model: "whisper-1",
-        prompt: "The audio contains instructions on how to move a car seat. Transcribe the audio word by word. The language can be german, english or italian. The audio may start with 'hyper'. Transcribe words as digits.",
+        prompt: "Never translate. The audio contains instructions on how to move a car seat. Transcribe the audio word by word. The language can be german, english or italian. The audio may start with 'hyper'. Transcribe words as digits.",
         response_format: "verbose_json",
       }) as any;
     } catch (e) {
