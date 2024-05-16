@@ -1,4 +1,7 @@
-const config = require("./config.json");
+
+
+
+const config = require("../../config.json");
 const fetch = require('node-fetch');
 
 (async () => {
@@ -91,14 +94,15 @@ const fetch = require('node-fetch');
         direction: translatedCommand[5].toLowerCase(),
         raw: translateRaw ? translatedCommand.join(' ') : msg,
         origin: direction === 0 ? "driver" : "passenger",
-        status_indicator: 200
+        status_indicator: 200,
+        originalLanguage: mappedLang
       };
 
       console.log("Constructed JSON: ", JSON.stringify(constructedJson, null, 2));
 
       try {
-        console.log("Sending request to:", 'XX');
-        const response = await fetch('XX', {
+        console.log("Sending request to:", 'http://10.30.51.150:8888/api/v5/hyper/commands');
+        const response = await fetch('http://10.30.51.150:8888/api/v5/hyper/commands', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -127,3 +131,4 @@ const fetch = require('node-fetch');
   const exampleText = "Hyper sitz bewegen 1 Zentimeter vorwärts.";
   intercept(exampleText, 0);
 })();
+
