@@ -29,6 +29,7 @@ export const processResponse = (gptResponse: any, seat: "DS" | "PS") => {
         mapValues(gptFunctionCall.arguments.distance) *
           (gptFunctionCall.arguments.direction ? 1 : -1),
       );
+      say(getMessages);
       break;
     case "move_backrest":
       moveBackrest(
@@ -36,6 +37,7 @@ export const processResponse = (gptResponse: any, seat: "DS" | "PS") => {
         mapValues(gptFunctionCall.arguments.distance) *
           (gptFunctionCall.arguments.direction ? 1 : -1),
       );
+      say(getMessages);
       break;
     case "move_incline":
       moveIncline(
@@ -43,6 +45,7 @@ export const processResponse = (gptResponse: any, seat: "DS" | "PS") => {
         mapValues(gptFunctionCall.arguments.distance) *
           (gptFunctionCall.arguments.direction ? 1 : -1),
       );
+      say(getMessages);
       break;
     case "move_shoulder":
       moveShoulder(
@@ -50,12 +53,15 @@ export const processResponse = (gptResponse: any, seat: "DS" | "PS") => {
         mapValues(gptFunctionCall.arguments.distance) *
           (gptFunctionCall.arguments.direction ? 1 : -1),
       );
+      say(getMessages);
       break;
     case "set_size":
       setSize(seat, gptFunctionCall.arguments.size);
+      say(getMessages);
       break;
     case "enable_mode":
       enableMode(gptFunctionCall.arguments.mode);
+      say(getMessages);
       break;
     default:
       console.error("Undefined action!");
