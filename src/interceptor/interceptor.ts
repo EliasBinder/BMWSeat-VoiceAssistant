@@ -1,6 +1,7 @@
 import config from "../../config.json";
 
 export const intercept = (msg: String, direction: number): boolean => {
+    //const cleanedMsg = msg.replace(/!/g, ''); 
     if (msg.toLowerCase().startsWith("hyper")){
         console.log("Intercepted: ", msg);
         const command = msg.split(" ");
