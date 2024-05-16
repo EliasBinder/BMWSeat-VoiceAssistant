@@ -20,7 +20,6 @@ export async function interpretMessage(userInput: string) {
     ],
     functions: functionsTratter,
     function_call: "auto",
-    tool_choice: "auto"
   });
 
   const completion = response.choices[0].message;

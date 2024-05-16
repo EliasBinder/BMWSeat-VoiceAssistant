@@ -36,9 +36,6 @@ export default [
         }
     },
     {
-        name: ""
-    },
-    {
         name: "move_shoulder",
         description: "Move the shoulder part of the car seat forward or backward",
         parameters: {
