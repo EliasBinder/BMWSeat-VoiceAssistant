@@ -1,24 +1,24 @@
 const commandDictionary = {
     de: {
         triggerword: ["hyper"],
-        domain: ["sitz"],
+        domain: ["sitz", "lehne"],
         commandname: ["bewegen"],
-        direction: ["vorwärts", "rückwärts"],
-        unit: ["zentimeter, millimeter"],
+        direction: ["vorwärts", "rückwärts", "hoch", "runter"],
+        unit: ["zentimeter, millimeter", "grad", "prozent", "ticks"],
     },
     it: {
         triggerword: ["hyper"],
-        domain: ["sedile"],
+        domain: ["sedile", "schienale"],
         commandname: ["sposta"],
-        direction: ["avanti", "indietro"],
-        unit: ["centimetri, millimetri"],
+        direction: ["avanti", "indietro", "su", "giù"],
+        unit: ["centimetri, millimetri", "grado", "percentuale", "ticks"],
     },
     en: {
         triggerword: ["hyper"],
-        domain: ["seat"],
+        domain: ["seat", "backrest"],
         commandname: ["move"],
-        direction: ["forward", "backward"],
-        unit: ["centimeters, millimeters"],
+        direction: ["forward", "backward", "up", "down"],
+        unit: ["centimeters, millimeters", "degree", "percent", "ticks"],
     }
 } as any;
 
@@ -32,15 +32,4 @@ export const getTranslation = (key: string): string => {
         }
     }
     return key;
-}
-
-export const getLanguage = (msg: string): string => {
-    const words = msg.split(" ");
-    const domain = words[1];
-    let lang = "en";
-    Object.keys(commandDictionary).find(curLang => {
-        if (commandDictionary[curLang].domain.includes(domain))
-            lang = curLang;
-    });
-    return lang;
 }
