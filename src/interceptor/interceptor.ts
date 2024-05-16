@@ -2,7 +2,7 @@
 import config from "../../config.json";
 import { getErrorMsg } from "./error-messages";
 import { say } from "../text-to-speech/textToSpeech";
-import { getLanguage, getTranslation } from "./dictionary";
+import { getTranslation } from "./dictionary";
 
 export const intercept = (msg: string, language: string, direction: number): boolean => {
     msg = msg.replace(/!|\?|\./g, ''); 
