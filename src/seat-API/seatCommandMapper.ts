@@ -10,7 +10,6 @@ import {
 import { say } from "../text-to-speech/textToSpeech";
 
 export const processResponse = (gptResponse: any, seat: "DS" | "PS") => {
-  console.log("gptResponse: ", gptResponse);
   const getMessages = gptResponse[0];
   const gptFunctionCall = gptResponse[1];
   if (!gptFunctionCall.name) return;

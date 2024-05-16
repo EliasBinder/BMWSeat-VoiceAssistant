@@ -5,7 +5,7 @@ import { getVoiceFeedback, mapDataForVoiceOutput } from "./gptVoiceResponse";
 
 export async function interpretMessage(userInput: string) {
   const response = await openAI.chat.completions.create({
-    model: "gpt-3.5-turbo-0613",
+    model: "gpt-4",
     messages: [
       {
         role: "system",
