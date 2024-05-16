@@ -9,6 +9,7 @@ import { processResponse } from "./seat-API/seatCommandMapper";
 import { startAnalyzing } from "./interrupts/interrupts";
 import { fetchDOV, stopFetchDOV } from "./direction-of-voice/directionOfVoice";
 import { intercept } from "./interceptor/interceptor";
+import { say } from "./text-to-speech/textToSpeech";
 
 //Setup Rest API
 startRestAPI();
@@ -37,6 +38,9 @@ const interpretCommand = async (command: string, direction: number) => {
   try {
     const gptResponse = await interpretMessage(command);
     console.log("✅ GPT Response: ", JSON.stringify(gptResponse));
+    if (!gptResponse[1]) {
+      say("I'm sorry, I didn't understand that.");
+    }
     processResponse(gptResponse, direction >= 0 ? "DS" : "PS");
   } catch (e) {
     //playAudio("error.mp3");
