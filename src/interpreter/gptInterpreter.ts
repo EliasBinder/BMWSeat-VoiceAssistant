@@ -35,6 +35,8 @@ export async function interpretMessage(userInput: string) {
     JSON.stringify(mapDataForVoiceOutput(voiceOutputInstructions as any), null, 2),
   );
 
+  console.log("completion.function_call: " + completion.function_call);
+
   // return array of response text and function called
   return [textResponse, completion.function_call];
 }
