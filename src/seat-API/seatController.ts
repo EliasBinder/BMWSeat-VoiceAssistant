@@ -13,13 +13,9 @@ export const enableMode = async (mode: string) => {
         console.error('Undefined mode')
         return
     }
-    const promises = [];
-    for (let _mode in modes) {
-        promises.push(handleResponse(requestHandler(
-            '/switch/vacust/' + modes[_mode as modeType] + '/' + (mode === _mode ? '1' : '0')
-        )))
-    }
-    return Promise.all(promises)
+    return handleResponse(requestHandler(
+        '/switch/vacust/' + endpoint + '/1'
+    ))
 }
 
 export const moveHorizontal = async (seat: 'DS' | 'PS', value: number) => {
