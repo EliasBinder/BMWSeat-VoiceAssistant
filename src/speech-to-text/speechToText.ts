@@ -23,7 +23,8 @@ export function transcribeMicrophone() {
       resp = await openAI.audio.transcriptions.create({
         file: fs.createReadStream("resources/transcription.wav"),
         model: "whisper-1",
-        prompt: "Transcribe the following audio. In special cases, the user may use a specific structure, like 'hyper sitz sitz bewegen 1 zentimeter vorwärts' or 'hyper seat move 1 centimeter forward'", 
+        //prompt: "Transcribe the following audio. In special cases, the user may use a specific structure, like 'hyper sitz sitz bewegen 1 zentimeter vorwärts' or 'hyper seat move 1 centimeter forward'", 
+        prompt: "hyper, seat, sitz, move, bewegen, vorwärts, forward, zentimeter, centimeter",
       });
       
       resp.text = resp.text.replace(/!/g, '');
