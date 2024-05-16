@@ -1,6 +1,5 @@
 import { requestHandler } from './requestHandler';
 export const enableMode = async (mode: string) => {
-    //or if we have to handle it => get mode settings from config.json
     const modes = {
         Parking: 'IN08-PARKMODE',
         EntryOrExit: 'IN09-EASYINOUT',
@@ -17,7 +16,7 @@ export const enableMode = async (mode: string) => {
     const promises = [];
     for (let _mode in modes) {
         promises.push(handleResponse(requestHandler(
-            '/switch/vacust/' + modes[_mode as modeType] + '/' + (mode === _mode ? 'on' : 'off')
+            '/switch/vacust/' + modes[_mode as modeType] + '/' + (mode === _mode ? '1' : '0')
         )))
     }
     return Promise.all(promises)
