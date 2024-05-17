@@ -49,8 +49,8 @@ export const intercept = (msg: string, language: string, direction: number): boo
       unit: parseUnit(getTranslation(command[4].toLowerCase(), language, "unit")),
       direction: getTranslation(command[5].toLowerCase(), language, "direction"),
       raw: msg,
-      origin: direction == 0 ? "driver" : "passenger",
-      //originallanguage: language, //TODO: clearify
+      origin: direction >= 0 ? "driver" : "passenger",
+      originlanguage: language,
       status_indicator: 200
     }
 
