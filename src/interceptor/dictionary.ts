@@ -19,7 +19,7 @@ const commandDictionary = {
     en: {
         triggerword: ["hyper"],
         domain: ["seat", "backrest", "vacust", "system"],
-        commandname: ["move", "start", "funktion", "incline", "execute"],
+        commandname: ["move", "start", "function", "incline", "execute"],
         direction: ["forward", "backward", "up", "down"],
         unit: ["centimeters", "millimeters", "degree", "percent", "ticks", "start", ...unitAbbreviations],
     }
