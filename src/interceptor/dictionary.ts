@@ -4,24 +4,24 @@ const unitAbbreviations = ["cm", "mm", "°", "%"];
 const commandDictionary = {
     de: {
         triggerword: ["hyper"],
-        domain: ["sitz", "lehne"],
-        commandname: ["bewegen"],
+        domain: ["sitz", "lehne", "vacust"],
+        commandname: ["bewegen", "funktion"],
         direction: ["vorwärts", "rückwärts", "hoch", "runter"],
-        unit: ["zentimeter", "millimeter", "grad", "prozent", "ticks", ...unitAbbreviations],
+        unit: ["zentimeter", "millimeter", "grad", "prozent", "ticks", "starten", ...unitAbbreviations],
     },
     it: {
         triggerword: ["hyper"],
-        domain: ["sedile", "schienale"],
-        commandname: ["sposta"],
+        domain: ["sedile", "schienale", "vacust"],
+        commandname: ["sposta", "funzione"],
         direction: ["avanti", "indietro", "su", "giù"],
-        unit: ["centimetri", "millimetri", "grado", "percentuale", "ticks", ...unitAbbreviations],
+        unit: ["centimetri", "millimetri", "grado", "percentuale", "ticks", "iniziare", ...unitAbbreviations],
     },
     en: {
         triggerword: ["hyper"],
-        domain: ["seat", "backrest"],
-        commandname: ["move"],
+        domain: ["seat", "backrest", "vacust"],
+        commandname: ["move", "start", "funktion"],
         direction: ["forward", "backward", "up", "down"],
-        unit: ["centimeters", "millimeters", "degree", "percent", "ticks", ...unitAbbreviations],
+        unit: ["centimeters", "millimeters", "degree", "percent", "ticks", "start", ...unitAbbreviations],
     }
 } as any;
 
