@@ -4,7 +4,7 @@ import { say } from "../text-to-speech/textToSpeech";
 import { getTranslation } from "./dictionary";
 
 export const intercept = (msg: string, language: string, direction: number): boolean => {
-  msg = msg.replace(/[!@#$%^&*()+=[\]{};:"\\|,.<>/?]/g, '');
+  msg = msg.replace(/[!@#$%^&*()+=[\]{};-_:"\\|,.<>/?]/g, '');
 
   if (msg.toLowerCase().startsWith("hyper")) {
     console.log("Intercepted: ", msg);
