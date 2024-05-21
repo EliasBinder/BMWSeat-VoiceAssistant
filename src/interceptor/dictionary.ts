@@ -39,6 +39,7 @@ const commandDictionary = {
       "piccolo",
       "medio",
       "comfort",
+      "grande",
       "sport",
       "lombare",
       ...unitAbbreviations
@@ -59,6 +60,9 @@ const commandDictionary = {
       "small",
       "medium",
       "comfort",
+      "easy",
+      "easyin",
+      "large",
       "sport",
       "lumbar",
       ...unitAbbreviations
