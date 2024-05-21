@@ -62,7 +62,7 @@ export const intercept = (msg: string, language: string, direction: number): boo
     console.log("Value:", command[3]);
     console.log("Parsed Value:", parseValue(command[3]));
 
-   try {
+  try {
       fetch(config.Hyper_Endpoint, {
         method: "POST",
         headers: {
@@ -71,33 +71,15 @@ export const intercept = (msg: string, language: string, direction: number): boo
         body: JSON.stringify(constructedJson)
       }).then(res => {
         console.log("Response: ", res);
-        let feedbackMessage = '';
-        if (res.ok) {
-                switch (language) {
-            case 'en':
-            feedbackMessage = 'Your command was successfully executed.';
-            break;
-            case 'de':
-            feedbackMessage = 'Ihr Befehl wurde erfolgreich ausgeführt.';
-            break;
-            case 'it':
-            feedbackMessage = 'Il tuo comando è stato eseguito con successo.';
-            break;
-            default:
-            feedbackMessage = 'Your command was successfully executed.';
-        }
-        } else {
-        const errorMessage = getErrorMsg(language);
-        console.log("Error: Command failed");
-        feedbackMessage = errorMessage;
-        }
-
-        say(feedbackMessage);
+         if (res.ok) {
+            const feedbackMessage = `Your command was successfully executed.`;
+            say(feedbackMessage);
+         } 
+      }).catch(err => {
+        console.log("Error: ", err);
       });
     } catch (e) {
       console.log("Error: ", e);
-      const errorMessage = getErrorMsg(language as any);
-      say(errorMessage);
     }
 
     return true;
