@@ -240,7 +240,6 @@ class HyperCommandApp(App):
             return
 
         try:
-
             command_parts = command.split(' ')
             if len(command_parts) >= 4:
                 trigger_word = command_parts[0]
@@ -276,6 +275,24 @@ class HyperCommandApp(App):
                     print(f"[DEBUG] Curl command executed successfully")
                     print(f"[DEBUG] Output: {output}")
                     self.show_success_popup('Command sent successfully')
+
+                    # Send custom speak command based on the selected language
+                    speak_command = ""
+                    if self.selected_language == "en":
+                        speak_command = 'curl -X POST http://10.30.51.221:3000/api/say -H "Content-Type: application/json" -d \'{"text": "Your command was submitted successfully"}\''
+                    elif self.selected_language == "it":
+                        speak_command = 'curl -X POST http://10.30.51.221:3000/api/say -H "Content-Type: application/json" -d \'{"text": "Il tuo comando è stato inviato con successo"}\''
+                    elif self.selected_language == "de":
+                        speak_command = 'curl -X POST http://10.30.51.221:3000/api/say -H "Content-Type: application/json" -d \'{"text": "Dein Befehl wurde erfolgreich übermittelt"}\''
+
+                    if speak_command:
+                        # Execute the custom speak command and check if it was sent successfully
+                        stdin, stdout, stderr = self.ssh.exec_command(speak_command)
+                        speak_exit_status = stdout.channel.recv_exit_status()
+                        print(f"[DEBUG] Custom speak command executed with exit status: {speak_exit_status}")
+                        if speak_exit_status != 0:
+                            print(f"[DEBUG] Failed to send custom speak command")
+                        
                 else:
                     print(f"[DEBUG] Curl command execution failed")
                     print(f"[DEBUG] Error: {error}")
