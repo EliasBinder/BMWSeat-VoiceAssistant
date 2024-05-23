@@ -6,6 +6,19 @@ import paramiko
 import json
 import configparser
 from threading import Thread
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.dropdown import DropDown
+from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
+from kivy.graphics import Color, Ellipse, Rectangle
+from kivy.metrics import dp
+from kivy.uix.popup import Popup
+from kivy.uix.image import Image
+from kivy.animation import Animation
+from kivy.clock import Clock
+from kivy.uix.widget import Widget
 
 def install_package(package_name):
     try:
@@ -19,29 +32,24 @@ def install_package(package_name):
 install_package('kivy')
 install_package('paramiko')
 
-from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.dropdown import DropDown
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
-from kivy.uix.label import Label
-from kivy.graphics import Color, Ellipse
-from kivy.metrics import dp
-from kivy.uix.popup import Popup
-from kivy.uix.image import Image
-from kivy.animation import Animation
-from kivy.clock import Clock
-from kivy.uix.widget import Widget
-
 class StatusIndicator(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        with self.canvas:
-            self.color = Color(1, 0, 0, 1)  
-            self.ellipse = Ellipse(size=(dp(20), dp(20)), pos=self.pos)
+        self.size = (dp(2), dp(2)) 
+        self.pos = kwargs.get('pos', (20, 20))
+        self.color = Color(1, 0, 0, 1)
+        self.ellipse = Ellipse(size=self.size, pos=self.pos)
+        self.canvas.add(self.color)
+        self.canvas.add(self.ellipse)
 
     def update_color(self, color):
         self.color.rgba = color
+        self.ellipse.size = self.size
+
+    def animate(self):
+        anim = Animation(size=(dp(2), dp(2)), duration=0.5) + Animation(size=(dp(5), dp(5)), duration=0.5)
+        anim.repeat = True
+        anim.start(self.ellipse)
 
 class HyperCommandApp(App):
     def __init__(self, **kwargs):
@@ -58,7 +66,7 @@ class HyperCommandApp(App):
         layout.add_widget(title_label)
 
         status_layout = BoxLayout(orientation='horizontal', spacing=dp(10), size_hint_y=None, height=dp(40))
-        self.status_label = Label(text='SSH Connection Status:', size_hint_x=0.8)
+        self.status_label = Label(text='', size_hint_x=0.8) 
         self.status_indicator = StatusIndicator(size_hint=(None, None), size=(dp(20), dp(20)))
         status_layout.add_widget(self.status_label)
         status_layout.add_widget(self.status_indicator)
@@ -75,14 +83,15 @@ class HyperCommandApp(App):
         self.language_dropdown = DropDown()
         languages = ['en', 'de', 'it']
         for language in languages:
-            btn = Button(text=language, size_hint_y=None, height=dp(40), background_color=(0.5, 0.5, 0.5, 1),
-                         text_size=(None, None), halign='center')
+            btn = Button(text=language, size_hint_y=None, height=dp(40), size_hint_x=None, width=dp(400),
+                        background_color=(0.5, 0.5, 0.5, 1), text_size=(None, None), halign='center')
             btn.bind(on_release=lambda btn: self.select_language(btn.text))
             self.language_dropdown.add_widget(btn)
 
         self.selected_language = languages[0]
-        language_button = Button(text='Choose Language', size_hint=(None, None), size=(dp(200), dp(40)),
-                                 background_color=(0.5, 0.5, 0.5, 1), pos_hint={'center_x': 0.5})
+
+        language_button = Button(text='Choose Language', size_hint=(None, None), size=(dp(400), dp(40)),
+                                background_color=(0.5, 0.5, 0.5, 1), pos_hint={'center_x': 0.5})
         language_button.bind(on_release=self.language_dropdown.open)
         layout.add_widget(language_button)
 
@@ -121,7 +130,15 @@ class HyperCommandApp(App):
         }
 
         self.selected_command = ''
-        command_button = Button(text='Select a command', size_hint=(None, None), size=(dp(300), dp(40)),
+        for command in self.commands[self.selected_language]:
+            btn = Button(text=command, size_hint_y=None, height=dp(40), size_hint_x=None, width=dp(400),
+                        background_color=(0.5, 0.5, 0.5, 1), text_size=(None, None), halign='center')
+            btn.bind(on_release=lambda btn: self.select_command(btn.text))
+            self.command_dropdown.add_widget(btn)
+
+        self.selected_command = ''
+
+        command_button = Button(text='Select a command', size_hint=(None, None), size=(dp(400), dp(40)),
                                 background_color=(0.5, 0.5, 0.5, 1), pos_hint={'center_x': 0.5})
         command_button.bind(on_release=self.command_dropdown.open)
         layout.add_widget(command_button)
@@ -149,6 +166,8 @@ class HyperCommandApp(App):
                              background_color=(0, 0.7, 0, 1), pos_hint={'center_x': 0.5})
         wake_button.bind(on_press=self.wake_command)
         layout.add_widget(wake_button)
+
+        self.status_indicator.animate()  # Animate the status indicator
 
         return layout
 
@@ -276,7 +295,6 @@ class HyperCommandApp(App):
                     print(f"[DEBUG] Output: {output}")
                     self.show_success_popup('Command sent successfully')
 
-                    # Send custom speak command based on the selected language
                     speak_command = ""
                     if self.selected_language == "en":
                         speak_command = 'curl -X POST http://10.30.51.221:3000/api/say -H "Content-Type: application/json" -d \'{"text": "Your command was submitted successfully"}\''
@@ -286,13 +304,13 @@ class HyperCommandApp(App):
                         speak_command = 'curl -X POST http://10.30.51.221:3000/api/say -H "Content-Type: application/json" -d \'{"text": "Dein Befehl wurde erfolgreich übermittelt"}\''
 
                     if speak_command:
-                        # Execute the custom speak command and check if it was sent successfully
+
                         stdin, stdout, stderr = self.ssh.exec_command(speak_command)
                         speak_exit_status = stdout.channel.recv_exit_status()
                         print(f"[DEBUG] Custom speak command executed with exit status: {speak_exit_status}")
                         if speak_exit_status != 0:
                             print(f"[DEBUG] Failed to send custom speak command")
-                        
+
                 else:
                     print(f"[DEBUG] Curl command execution failed")
                     print(f"[DEBUG] Error: {error}")
